@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \input{01-metaprog.sty}
+\makeatother
+
+
+
+\begin{document}
+
+%\section{En coulisse...}
+
+\subsection{Macro avec un \og multi-argument \fg}
+
+La suite \verb+tns+ propose la possibilité d'avoir des macros avec un nombre variables d'arguments. Pour ce type de macros, le choix a été fait de passer via unique argument au sens \LaTeX{} mais contenant des \emph{\og sous-arguemnts \fg} séparés par des barres verticales, ou pipe.
+Nous parlerons de  \og multi-argument \fg.
+Voici une exemple d'utilisation spécifique.
+
+\makeatletter
+\newcommand\verticalcoord[1]{%
+    \tns@multi@args{|}{#1}%
+                   {\begin{bmatrix}}%
+                   {\\}%
+                   {\end{bmatrix}}%
+}
+\makeatother
+
+\begin{latexex}
+$\verticalcoord{1}$                 ,
+$\verticalcoord{1 | 2}$             ,
+$\verticalcoord{1 | 2 | 3}$         ,
+$\verticalcoord{1 | 2 | 3 | 4}$     ,
+$\verticalcoord{1 | 2 | 3 | 4 | 5}$ ...
+\end{latexex}
+
+
+La macro \macro{verticalcoord} a été définie comme suit via la macro \macro{tns@multi@args}. L'environnement \env{bmatrix} via du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
+
+\begin{latexex-alone}
+\newcommand\verticalcoord[1]{%
+    \tns@multi@args{|}{#1}           % Séparateur et argument au sens LaTeX
+                   {\begin{bmatrix}} % Matériel avant
+                   {\\}              % Ce qui remplace le séparateur
+                   {\end{bmatrix}}   % Matériel après
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\paragraph{Macro avec un \og multi-argument \fg}
+
+\IDmacro*{tns@multi@args}{5}
+
+\IDarg{1} le séparateur de \emph{\og sous-arguemnts \fg}.
+
+\IDarg{2} le \og multi-argument \fg.
+
+\IDarg{2} le matériel a ajouté avant.
+
+\IDarg{4} le matériel que l'on met à la place du séparateur donné en 1\ier{} argument.
+
+\IDarg{5} le matériel a ajouté après.
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \input{01-metaprog.sty}
+\makeatother
+
+
+
+\begin{document}
+
+%\section{En coulisse...}
+
+\subsection{Produit en croix}
+
+Comme ce type de calculs apparait très souvent dans divers domaines, une macro privée est chargée de ce tout petit travail de mise en forme.
+
+\begin{latexex}
+\makeatletter
+$\tns@prop@prod{\cdot} % Opérateur
+               {1}{2}  % Les éléments
+               {3}{4}$ % du tableau
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\paragraph{Produit en croix}
+
+\IDmacro*{tns@prop@prod}{5}
+
+
+\IDarg{1} l'opérateur de multiplication à imprimer.
+
+\IDarg{\!s 2-5} les $4$ éléments du tableau de proportionalité lus ligne par ligne.
+
+\end{document}

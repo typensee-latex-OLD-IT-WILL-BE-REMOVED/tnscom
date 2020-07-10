@@ -1,0 +1,13 @@
+% == PACKAGES USED == %
+
+
+% == DEFINITIONS == %
+
+\@ifpackagewith{babel}{french}{
+    \newcommand\tnsmathsep{;}
+    \newcommand\tnsmathsubsep{,}
+}{
+    \newcommand\tnsmathsep{,}
+    \newcommand\tnsmathsubsep{;}
+}
+

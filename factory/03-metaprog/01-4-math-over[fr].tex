@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \input{01-metaprog.sty}
+\makeatother
+
+
+
+\begin{document}
+
+%\section{En coulisse...}
+
+\subsection{Décorer un opérateur}
+
+Il est facile d'obtenir l'effet suivant via la macro \macro{tns@over@math@symbol}.
+
+\makeatletter
+\newcommand\eqtxt{\tns@over@math@symbol{texte}{=}}
+\makeatother
+
+\begin{latexex}
+$1 \eqtxt un$
+\end{latexex}
+
+
+Le code qui a été utilisé est le suivant.
+
+
+\begin{latexex-alone}
+\newcommand\eqtxt{\tns@over@math@symbol{texte}{=}}
+\end{latexex-alone}
+
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\paragraph{Décorer un opérateur}
+
+\IDmacro*{tns@over@math@symbol}{2}
+
+\IDarg{1} le texte à ajouter au-dessus.
+
+\IDarg{2} le symbole à décorer.
+
+\end{document}

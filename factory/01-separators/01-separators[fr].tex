@@ -1,0 +1,30 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+	\input{../config/header[fr].sty}
+
+	\usepackage{01-separators}
+\makeatother
+
+
+\begin{document}
+
+\section{Deux séparateurs d'arguments par défaut}
+
+La macro \macro{tnsmathsep} définit le séparateur d'arguments de premier niveau et \macro{tnsmathsubsep} celui des arguments de deuxième niveau.
+Cette documentation utilisant l'option \verb+french+ de \verb+babel+, la valeur de 
+\macro{tnsmathsep} est \fbox{\,\tnsmathsep$\vphantom{F}$\,} 
+et celle de
+\macro{tnsmathsubsep} est \fbox{\,\tnsmathsubsep$\vphantom{F}$\,} .
+Sans ce choix, les valeurs de \macro{tnsmathsep} et \macro{tnsmathsubsep} seront \fbox{\,\tnsmathsubsep$\vphantom{F}$\,} et \fbox{\,\tnsmathsep$\vphantom{F}$\,} respectivement à l'anglaise.
+
+
+\subsection{Fiches techniques}
+
+\paragraph{Deux séparateurs d'arguments par défaut}
+
+\IDmacro*{tnsmathsep}{0}
+
+\IDmacro*{tnsmathsubsep}{0}
+
+\end{document}

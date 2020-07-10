@@ -1,0 +1,110 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \input{01-metaprog.sty}
+\makeatother
+
+
+
+\begin{document}
+
+%\section{En coulisse...}
+
+\subsection{Déterminant 2D ou produit en croix décoré}
+
+Des macros privées permettent, suivant le contexte, d'écrire un calcul de proportionnalité ou bien celui d'un déterminant avec différentes mises en forme possibles.
+
+
+\newparaexample{La totale}
+
+La macro \macro{tns@det@plane@deco} est facile d'utilisation comme le montre l'exemple suivant.
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@deco%
+     {vec}     % Vecteurs visibles
+     {u}       % 1e vecteur 2D
+     {x}{y}    % Coord. du 1e vecteur 
+     {v}       % 2e vecteur 2D
+     {x'}{y'}$ % Coord. du 2e vecteur
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Décoration mais sans vecteur}
+
+En choisissant \verb+novec+ au lieu de \verb+vec+, les vecteurs ne seront pas affichés.
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@deco{novec}   %
+                    {u}{x}{y} %
+                    {v}{x'}{y'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Sans décoration mais avec les vecteurs}
+
+En utilisant \macro{tns@det@plane@no@deco}, la boucle fléchée ne sera pas imprimée. Voici une 1\iere{} utilisation possible.
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@no@deco{vec}     %
+                       {u}{x}{y} %
+                       {v}{x'}{y'}$
+\makeatother
+\end{latexex}
+
+
+
+% ---------------------- %
+
+
+\newparaexample{Sans décoration ni vecteur}
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@no@deco{novec}   %
+                       {u}{x}{y} %
+                       {v}{x'}{y'}$
+\makeatother
+\end{latexex}
+
+
+
+
+
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\paragraph{Déterminant 2D ou produit en croix décoré}
+
+\IDmacro*{tns@det@plane@deco}{7}
+
+\IDmacro*{tns@det@plane@no@deco}{7}
+
+
+\IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
+
+\IDarg{2} le 1\ier{} vecteur.
+
+\IDarg{\!s 3-4} les coordonnées du 1\ier{} vecteur.
+
+\IDarg{5} le 2\ieme{} vecteur.
+
+\IDarg{\!s 6-7} les coordonnées du 2\ieme{} vecteur.
+
+\end{document}

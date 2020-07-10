@@ -1,0 +1,36 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+	\input{../config/header[fr].sty}
+	\input{../02-spaces/02-spaces.sty}
+\makeatother
+
+
+\begin{document}
+
+\section{Introduction}
+
+Ce package contient quelques macros utiles à différents packages de la série \verb+tns+ : la majorité des macros sont pour les coulisses et quelques unes concernent la mise en forme.
+
+
+% ---------------------- %
+
+
+\section{A propos des macros standards redéfinies}
+
+Certaines macros comme \verb+\frac+ sont un peu revues par \verb+tnscom+.
+Dans ce cas, les versions standard restent accessibles en utilisant le préfixe \prefix{std} ce qui donne ici la macro \macro{stdfrac}.
+
+
+% ---------------------- %
+
+
+\section{Comment lire cette documentation ?}
+
+Le choix a été fait de fournir des exemples comme documentation du package suivis de fiches techniques des macros-commandes \emph{(se reporter à la section \ref{techincal-ids})}. Les exemples se présentent comme ci-dessous et sont généralement très courts.
+
+\begin{latexex}
+$\dfrac{1}{2} = \stddfrac{1}{2}$
+\end{latexex}
+
+\end{document}
