@@ -173,7 +173,7 @@
 {\footnotesize Version \texttt{0.0.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-10}{{{{{{{{{{
+\date{2020-07-10}{{{{{{{{{{{
 
 \maketitle
 
@@ -202,18 +202,6 @@ Ce package contient quelques macros utiles à différents packages de la série 
 
 Certaines macros comme \verb+\frac+ sont un peu revues par \verb+tnscom+.
 Dans ce cas, les versions standard restent accessibles en utilisant le préfixe \prefix{std} ce qui donne ici la macro \macro{stdfrac}.
-
-
-% ---------------------- %
-
-
-\section{Comment lire cette documentation ?}
-
-Le choix a été fait de fournir des exemples comme documentation du package suivis de fiches techniques des macros-commandes \emph{(se reporter à la section \ref{techincal-ids})}. Les exemples se présentent comme ci-dessous et sont généralement très courts.
-
-\begin{latexex}
-$\dfrac{1}{2} = \stddfrac{1}{2}$
-\end{latexex}
 \section{Deux séparateurs d'arguments par défaut}
 
 La macro \macro{tnsmathsep} définit le séparateur d'arguments de premier niveau et \macro{tnsmathsubsep} celui des arguments de deuxième niveau.
@@ -260,7 +248,7 @@ $\sqrt[p]{7}  = \stdsqrt[p]{7}$
 \section{En coulisse...}
 
 Cette section présente les macros dites \emph{\og privées \fg} proposées par \verb+tnscom+.
-Toutes ces macros ont de noms commençant par \verb+\tns@+ et aucune version étoilée n'est proposée
+Toutes ces macros ont des noms commençant par \verb+\tns@+ et aucune version étoilée n'est proposée
 \footnote{
 	\og Explicite \fg{} est mieux que \og implicite \fg{}.
 }.
@@ -325,7 +313,7 @@ $\verticalcoord{1 | 2 | 3 | 4 | 5}$ ...
 \end{latexex}
 
 
-La macro \macro{verticalcoord} a été définie comme suit via la macro \macro{tns@multi@args}. L'environnement \env{bmatrix} via du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
+La macro \macro{verticalcoord} a été définie comme suit via la macro \macro{tns@multi@args}. L'environnement \env{bmatrix} vient du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
 
 \begin{latexex-alone}
 \newcommand\verticalcoord[1]{%
@@ -555,7 +543,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \newpage
 \section{Toutes les fiches techniques} \label{techincal-ids}
 
-
+\subsection{Introduction}
 \subsection{Deux séparateurs d'arguments par défaut}
 
 \subsubsection{Deux séparateurs d'arguments par défaut}
@@ -563,7 +551,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDmacro*{tnsmathsep}{0}
 
 \IDmacro*{tnsmathsubsep}{0}
-
+\subsection{Quelques modifications générales}
 \subsubsection{Espace et fractions}
 
 \IDmacro*{frac}{2}
@@ -662,6 +650,6 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{5} le 2\ieme{} vecteur.
 
 \IDarg{\!s 6-7} les coordonnées du 2\ieme{} vecteur.
-
+\newpage
 
 \end{document}
