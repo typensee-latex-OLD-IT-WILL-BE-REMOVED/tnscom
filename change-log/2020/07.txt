@@ -1,4 +1,17 @@
 ==========
+2020-07-15
+==========
+
+**New minor version version::``0.1.0-beta`` of ¨tnscom:** see the changes below.
+
+
+**Symbolic variable :** one new macro `\symvar` can be used to indicate variables in functional operators for example.
+
+
+**Internal machinery for 2D det :** unknwon options will produce error messages.
+
+
+==========
 2020-07-10
 ==========
 

@@ -1,0 +1,19 @@
+% == PACKAGES USED == %
+
+% == DEFINITIONS == %
+
+% Math tools - Det in 2D
+
+% Source
+%    * F. Pantigny gives me good advices to use its great package nicematrix.
+%    * https://tex.stackexchange.com/a/548662/6880
+%
+%   #1 : symbol for the product
+%
+%   #2  #3		x  x'
+%   #4  #5      y  y'
+
+\newcommand\tns@prop@prod[5]{
+    #2 #1 #5 - #4 #1 #3%
+}
+

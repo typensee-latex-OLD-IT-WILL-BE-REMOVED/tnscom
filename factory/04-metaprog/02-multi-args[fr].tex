@@ -3,7 +3,7 @@
 \makeatletter
     \input{../config/header[fr].sty}
 
-    \input{01-metaprog.sty}
+    \input{02-multi-args.sty}
 \makeatother
 
 
@@ -14,9 +14,12 @@
 
 \subsection{Macro avec un \og multi-argument \fg}
 
-La suite \verb+tns+ propose la possibilité d'avoir des macros avec un nombre variables d'arguments. Pour ce type de macros, le choix a été fait de passer via unique argument au sens \LaTeX{} mais contenant des \emph{\og sous-arguemnts \fg} séparés par des barres verticales, ou pipe.
+La suite \verb+tns+ propose la possibilité d'avoir des macros avec un nombre variables d'arguments. Pour ce type de macros, le choix a été fait de passer via unique argument au sens \LaTeX{} mais contenant des \emph{\og sous-arguemnts \fg} séparés par des barres verticales \emph{(on dit \emph{\og pipe \fg} en anglais)}.
 Nous parlerons de  \og multi-argument \fg.
-Voici une exemple d'utilisation spécifique.
+
+\medskip
+
+Voici un exemple d'utilisation possible \emph{(la fonctionnalité ci-dessous est en fait disponible via la macro \macro{coord} du package \texttt{tnsgeo} disponible sur \url{https://github.com/typensee-latex/tnsgeo.git})}.
 
 \makeatletter
 \newcommand\verticalcoord[1]{%
@@ -36,7 +39,7 @@ $\verticalcoord{1 | 2 | 3 | 4 | 5}$ ...
 \end{latexex}
 
 
-La macro \macro{verticalcoord} a été définie comme suit via la macro \macro{tns@multi@args}. L'environnement \env{bmatrix} vient du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
+La macro \macro{verticalcoord} a été définie comme suit via la macro privée \macro{tns@multi@args}. L'environnement \env{bmatrix} vient du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
 
 \begin{latexex-alone}
 \newcommand\verticalcoord[1]{%

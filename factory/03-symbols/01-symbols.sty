@@ -1,0 +1,24 @@
+% == PACKAGES USED == %
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{relsize}
+
+
+% == DEFINITIONS == %
+
+% Symbolic variable (for functional operators for example)
+%
+% Source
+%     * https://tex.stackexchange.com/a/273043/6880
+
+\newcommand\symvar{\@ifstar{\@symbvar@star}{\@symbvar@no@star}}
+
+\newcommand\@symbvar@no@star{%
+    \text{\raise0.2ex\hbox{$\mathsmaller{\bullet}$}}%
+}
+
+\newcommand\@symbvar@star{%
+    \vcenter{\hbox{\rule{.65ex}{.65ex}}}%
+}
+

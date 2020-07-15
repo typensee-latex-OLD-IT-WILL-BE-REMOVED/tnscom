@@ -1,0 +1,54 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+	\input{../config/header[fr].sty}
+
+	\usepackage{01-symbols}
+\makeatother
+
+
+\begin{document}
+
+%\section{Quelques modifications générales}
+
+\subsection{Une variable \og symbolique \fg{}}
+
+%Alignement test : $\symvar*$$\symvar$
+
+Dans certains contextes, comme celui des opérateurs fonctionnels, il peut être utile d'indiquer un argument symboliquement via $\symvar$ par exemple sans faire référence précisément à une ou des variables nommées.
+\prefix{symbvar} est pour \whyprefix{symb}{olic} \whyprefix{var}{iable} soit \inenglish{variable symbolique}.
+Voici un exemple d'utilisation.
+
+\begin{latexex}
+ $| \symvar |$ ou
+ $\frac{d\symvar}{dx}
+= \frac{d}{dx}\symvar$
+\end{latexex}
+
+
+Si besoin, vous disposez d'un autre symbole via la version étoilée de \macro{symbvar} pour obtenir $\symvar*$ comme ci-dessous.
+
+\begin{latexex}
+ $| \symvar* |$ ou
+ $\frac{d\symvar*}{dx}
+= \frac{d}{dx}\symvar*$
+\end{latexex}
+
+\begin{remark}
+	Comme $\symvar$ et $\symvar*$ sont des caractères, il faudra si besoin gérer les espaces autour via des \macro{kern} pour obtenir des choses comme  $|\kern.2ex\symvar\kern.2ex|$ et  $d\kern.25ex\symvar*$ par exemple.
+\end{remark}
+
+
+
+% ---------------------- %
+
+
+\subsubsection{Fiches techniques}
+
+\paragraph{Symbole pour les opérateurs fonctionnels}
+
+\IDmacro*{symbvar}{0}
+
+\IDmacro*{symbvar*}{0}
+
+\end{document}

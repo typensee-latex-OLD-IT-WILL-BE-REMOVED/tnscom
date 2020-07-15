@@ -1,0 +1,15 @@
+% == PACKAGES USED == %
+
+\RequirePackage{amsmath}
+
+
+% == DEFINITIONS == %
+
+% Math tools - Deco over a math symbol
+
+% #1 : the text over the symbol
+% #2 : the symbol
+\newcommand\tns@over@math@symbol[2]{%
+    \mathrel{\overset{\mathrm{\text{\raisebox{.5ex}{#1}}}}{#2}}%
+}
+
