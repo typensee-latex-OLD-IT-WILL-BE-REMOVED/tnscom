@@ -193,7 +193,8 @@
 
 \section{Introduction}
 
-Ce package contient quelques macros utiles à différents packages de la série \verb+tns+ : une partie des macros sont pour les coulisses et d'autres directement pour de la mise en forme commune à différents packages.
+Ce package contient quelques macros utiles à différents packages de la série \verb+tns+ qui a pour modeste ambition de rendre un plus sémantique l'écriture de document avec \LaTeX.
+Une partie des macros sont pour les coulisses et d'autres directement pour de la mise en forme commune à différents packages.
 
 
 % ---------------------- %
@@ -253,7 +254,7 @@ $\sqrt[p]{7}  = \stdsqrt[p]{7}$
 %Alignement test : $\symvar*$$\symvar$
 
 Dans certains contextes, comme celui des opérateurs fonctionnels, il peut être utile d'indiquer un argument symboliquement via $\symvar$ par exemple sans faire référence précisément à une ou des variables nommées.
-\prefix{symbvar} est pour \whyprefix{symb}{olic} \whyprefix{var}{iable} soit \inenglish{variable symbolique}.
+\prefix{symvar} est pour \whyprefix{sym}{bolic} \whyprefix{var}{iable} soit \inenglish{variable symbolique}.
 Voici un exemple d'utilisation.
 
 \begin{latexex}
@@ -263,7 +264,7 @@ Voici un exemple d'utilisation.
 \end{latexex}
 
 
-Si besoin, vous disposez d'un autre symbole via la version étoilée de \macro{symbvar} pour obtenir $\symvar*$ comme ci-dessous.
+Si besoin, vous disposez d'un autre symbole via la version étoilée de \macro{symvar} pour obtenir $\symvar*$ comme ci-dessous.
 
 \begin{latexex}
  $| \symvar* |$ ou
@@ -585,24 +586,26 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \newpage
 \section{Toutes les fiches techniques} \label{techincal-ids}
 
-\subsection{Introduction}
+
 \subsection{Deux séparateurs d'arguments par défaut}
 
-\subsubsection{Deux séparateurs d'arguments par défaut}
 
 \IDmacro*{tnsmathsep}{0}
 
 \IDmacro*{tnsmathsubsep}{0}
+
 \subsection{Quelques modifications générales}
+
 \subsubsection{Espace et fractions}
 
-\IDmacro*{frac}{2}
 
-\IDmacro*{dfrac}{2}
+\IDmacro*{frac    }{2}
+
+\IDmacro*{dfrac   }{2}
 
 \extraspace
 
-\IDmacro*{stdfrac}{2}
+\IDmacro*{stdfrac }{2}
 
 \IDmacro*{stddfrac}{2}
 
@@ -612,7 +615,8 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDarg{2} le dénominateur.
 \subsubsection{Espace et racines n-ièmes d'un réel}
 
-\IDmacro{sqrt}{1}{1}
+
+\IDmacro{sqrt   }{1}{1}
 
 \IDmacro{stdsqrt}{1}{1}
 
@@ -620,14 +624,16 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDoption{} l'exposant à indiquer pour une racine n-ième.
 
 \IDarg{} le radicande, c'est à dire ce qui sera écrit sous le radical.
-\subsubsection{Symbole pour les opérateurs fonctionnels}
+\subsubsection{Une variable \og symbolique \fg{}}
 
-\IDmacro*{symbvar}{0}
 
-\IDmacro*{symbvar*}{0}
+\IDmacro*{symvar}{0}
+
+\IDmacro*{symvar*}{0}
 \subsection{En coulisse...}
 
 \subsubsection{Nouvelle macro modifiant les arguments en amont de l'application d'une ancienne macro}
+
 
 \IDmacro*{tns@apply@macro@two@args}{4}
 
@@ -638,6 +644,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDarg{$\!$s 3-4} ils sont là pour la définition abstraite mais en pratique ils ne seront pas utilisés
 Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@apply@macro@two@args}.
 \subsubsection{Macro avec un \og multi-argument \fg}
+
 
 \IDmacro*{tns@multi@args}{5}
 
@@ -652,7 +659,8 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{5} le matériel a ajouté après.
 \subsubsection{Intervalles \og généralisés \fg}
 
-\IDmacro*{tns@generic@interval@ext}{5}
+
+\IDmacro*{tns@generic@interval@ext     }{5}
 
 \IDmacro*{tns@generic@interval@semi@ext}{5}
 
@@ -668,12 +676,14 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{5} le 2\ier{} délimiteur qui est à droite.
 \subsubsection{Décorer un opérateur}
 
+
 \IDmacro*{tns@over@math@symbol}{2}
 
 \IDarg{1} le texte à ajouter au-dessus.
 
 \IDarg{2} le symbole à décorer.
 \subsubsection{Produit en croix}
+
 
 \IDmacro*{tns@prop@prod}{5}
 
@@ -682,6 +692,7 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 
 \IDarg{$\!$s 2-5} les $4$ éléments du tableau de proportionalité lus ligne par ligne.
 \subsubsection{Déterminant 2D ou produit en croix décoré}
+
 
 \IDmacro*{tns@det@plane@deco}{7}
 
@@ -697,6 +708,6 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{5} le 2\ieme{} vecteur.
 
 \IDarg{\!s 6-7} les coordonnées du 2\ieme{} vecteur.
-\newpage
+
 
 \end{document}

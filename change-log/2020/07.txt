@@ -1,4 +1,11 @@
 ==========
+2020-07-21
+==========
+
+**Internal machinery for the technical ¨infos:** the builder is better but stil not the best...
+
+
+==========
 2020-07-15
 ==========
 
@@ -8,7 +15,7 @@
 **Symbolic variable :** one new macro `\symvar` can be used to indicate variables in functional operators for example.
 
 
-**Internal machinery for 2D det :** unknwon options will produce error messages.
+**Internal machinery for 2D det :** unknwon options will produce error messages and some factorization has been done.
 
 
 ==========
