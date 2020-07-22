@@ -38,6 +38,13 @@
 \usepackage{cbdevtool}
 
 
+% Sections numbering
+
+%\renewcommand\thechapter{\Roman{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\alph{subsection}.}
+\renewcommand\thesubsubsection{\roman{subsubsection}.}
+
 
 % MISC
 
@@ -49,6 +56,16 @@
 	listing side text
 }
 
+\newtcbinputlisting{\inputlatexex}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing side text
+}
+
+
 \newtcblisting{latexex-flat}{%
 	sharp corners,%
 	left=1mm, right=1mm,%
@@ -56,12 +73,56 @@
 	colupper=red!75!blue,%
 }
 
+\newtcbinputlisting{\inputlatexexflat}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+}
+
+
 \newtcblisting{latexex-alone}{%
 	sharp corners,%
 	left=1mm, right=1mm,%
 	bottom=1mm, top=1mm,%
 	colupper=red!75!blue,%
 	listing only
+}
+
+\newtcbinputlisting{\inputlatexexalone}[2][]{%
+	listing file={#2},%
+	sharp corners,%
+	left=1mm, right=1mm,%
+	bottom=1mm, top=1mm,%
+	colupper=red!75!blue,%
+	listing only
+}
+
+
+\newcommand\inputlatexexcodeafter[1]{%
+	\begin{center}
+		\input{#1}
+	\end{center}
+
+	\vspace{-.5em}
+	
+	Le rendu précédent a été obtenu via le code suivant.
+	
+	\inputlatexexalone{#1}
+}
+
+
+\newcommand\inputlatexexcodebefore[1]{%
+	\inputlatexexalone{#1}
+	\vspace{-.75em}
+	\begin{center}
+		\textit{\footnotesize Rendu du code précédent}
+		
+		\medskip
+		
+		\input{#1}
+	\end{center}
 }
 
 
@@ -587,16 +648,26 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \section{Toutes les fiches techniques} \label{techincal-ids}
 
 
+
+
+
+
 \subsection{Deux séparateurs d'arguments par défaut}
+
 
 
 \IDmacro*{tnsmathsep}{0}
 
 \IDmacro*{tnsmathsubsep}{0}
 
+
+
+
+
 \subsection{Quelques modifications générales}
 
 \subsubsection{Espace et fractions}
+
 
 
 \IDmacro*{frac    }{2}
@@ -613,7 +684,10 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDarg{1} le numérateur.
 
 \IDarg{2} le dénominateur.
+
+
 \subsubsection{Espace et racines n-ièmes d'un réel}
+
 
 
 \IDmacro{sqrt   }{1}{1}
@@ -624,15 +698,21 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \IDoption{} l'exposant à indiquer pour une racine n-ième.
 
 \IDarg{} le radicande, c'est à dire ce qui sera écrit sous le radical.
+
+
 \subsubsection{Une variable \og symbolique \fg{}}
+
 
 
 \IDmacro*{symvar}{0}
 
 \IDmacro*{symvar*}{0}
+
+
 \subsection{En coulisse...}
 
 \subsubsection{Nouvelle macro modifiant les arguments en amont de l'application d'une ancienne macro}
+
 
 
 \IDmacro*{tns@apply@macro@two@args}{4}
@@ -643,7 +723,10 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDarg{$\!$s 3-4} ils sont là pour la définition abstraite mais en pratique ils ne seront pas utilisés
 Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@apply@macro@two@args}.
+
+
 \subsubsection{Macro avec un \og multi-argument \fg}
+
 
 
 \IDmacro*{tns@multi@args}{5}
@@ -657,7 +740,10 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{4} le matériel que l'on met à la place du séparateur donné en 1\ier{} argument.
 
 \IDarg{5} le matériel a ajouté après.
+
+
 \subsubsection{Intervalles \og généralisés \fg}
+
 
 
 \IDmacro*{tns@generic@interval@ext     }{5}
@@ -674,7 +760,10 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{4} le 2\ieme{} élément de l'intervalle \og généralisé \fg.
 
 \IDarg{5} le 2\ier{} délimiteur qui est à droite.
+
+
 \subsubsection{Décorer un opérateur}
+
 
 
 \IDmacro*{tns@over@math@symbol}{2}
@@ -682,7 +771,10 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{1} le texte à ajouter au-dessus.
 
 \IDarg{2} le symbole à décorer.
+
+
 \subsubsection{Produit en croix}
+
 
 
 \IDmacro*{tns@prop@prod}{5}
@@ -691,7 +783,10 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{1} l'opérateur de multiplication à imprimer.
 
 \IDarg{$\!$s 2-5} les $4$ éléments du tableau de proportionalité lus ligne par ligne.
+
+
 \subsubsection{Déterminant 2D ou produit en croix décoré}
+
 
 
 \IDmacro*{tns@det@plane@deco}{7}
@@ -708,6 +803,8 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{5} le 2\ieme{} vecteur.
 
 \IDarg{\!s 6-7} les coordonnées du 2\ieme{} vecteur.
+
+
 
 
 \end{document}
