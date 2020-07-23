@@ -35,7 +35,7 @@
 
 \usepackage{ifthen}
 
-\usepackage{cbdevtool}
+\usepackage{macroenvsign}
 
 
 % Sections numbering
@@ -631,9 +631,10 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
     
     \begin{itemize}[itemsep=.5em]
         \item \topic*{Symboles} les nouvelles macros \macro{symvar} et \macro{symvar*} produisent un disque plein et un carré plein permettant par exemple d'indiquer symboliquement une ou des variables.
-        
-        \separation
     \end{itemize}
+    
+    \separation
+
 % ------------------------ %
 
     \medskip
@@ -656,9 +657,9 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
-\IDmacro*{tnsmathsep}{0}
+\IDmacro**{tnsmathsep}
 
-\IDmacro*{tnsmathsubsep}{0}
+\IDmacro**{tnsmathsubsep}
 
 
 
@@ -721,7 +722,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \IDarg{2} macro qui sera appliqué sur chacun des deux arguments avant appel la macro donné en argument 1.
 
-\IDarg{$\!$s 3-4} ils sont là pour la définition abstraite mais en pratique ils ne seront pas utilisés
+\IDargs{3..4} ils sont là pour la définition abstraite mais en pratique ils ne seront pas utilisés
 Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@apply@macro@two@args}.
 
 
@@ -782,7 +783,7 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 
 \IDarg{1} l'opérateur de multiplication à imprimer.
 
-\IDarg{$\!$s 2-5} les $4$ éléments du tableau de proportionalité lus ligne par ligne.
+\IDargs{2..5} les $4$ éléments du tableau de proportionnalité lus ligne par ligne.
 
 
 \subsubsection{Déterminant 2D ou produit en croix décoré}
@@ -798,11 +799,11 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 
 \IDarg{2} le 1\ier{} vecteur.
 
-\IDarg{\!s 3-4} les coordonnées du 1\ier{} vecteur.
+\IDargs{3..4} les coordonnées du 1\ier{} vecteur.
 
 \IDarg{5} le 2\ieme{} vecteur.
 
-\IDarg{\!s 6-7} les coordonnées du 2\ieme{} vecteur.
+\IDargs{6..7} les coordonnées du 2\ieme{} vecteur.
 
 
 
