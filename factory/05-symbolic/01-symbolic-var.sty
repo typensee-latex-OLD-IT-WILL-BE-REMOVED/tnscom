@@ -1,0 +1,27 @@
+% == PACKAGES USED == %
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{relsize}
+\RequirePackage{xstring}
+
+
+% == DEFINITIONS == %
+
+% Symbolic variable (for functional operators for example)
+%
+% Source
+%     * https://tex.stackexchange.com/a/273043/6880
+
+\newcommand\symvar[1][1]{%
+    \IfEqCase{#1}{%
+        {1}{\text{\raise0.2ex\hbox{$\mathsmaller{\bullet}$}}}%
+        {2}{\text{\raise0.2ex\hbox{$\mathsmaller{\circ}$}}}%
+        {3}{\vcenter{\hbox{\rule{.65ex}{.65ex}}}}%
+    }[%
+        \PackageError{tnscom}{unknown option}%
+                             {you can use 1 (default), 2 or 3.}%
+    ]
+}
+
+

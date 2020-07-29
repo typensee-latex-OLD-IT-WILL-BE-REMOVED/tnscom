@@ -1,0 +1,17 @@
+% == PACKAGES USED == %
+
+\RequirePackage{siunitx}
+
+
+% == DEFINITIONS == %
+
+\@ifpackagewith{babel}{french}{
+    \sisetup{
+        list-final-separator  = {et},
+        list-pair-separator   = {et},
+        range-phrase          = {à},
+        input-product         = {*},
+        output-decimal-marker = {,},
+        group-minimum-digits  = 5
+    }
+}{}

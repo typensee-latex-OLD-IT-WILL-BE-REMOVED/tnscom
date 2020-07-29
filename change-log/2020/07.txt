@@ -1,4 +1,25 @@
 ==========
+2020-07-29
+==========
+
+**New minor version version::``0.2.0-beta`` of ¨tnscom:** see the changes below.
+
+
+**New formating fo 2D determinant :** the macro ``\tns@det@plane@deco`` has a new argument to choose between curved lines or straight ones which explain how to calculate.
+
+
+**New symbolic variables :** the starred version of ``\symvar`` has been removed. Instead an optional argument can be used to change the kind of symbolic variable.
+
+
+**New good dependance :** the so good package ¨siunitx is loaded by ¨tnscom.
+
+
+**Internal machinery for the documentation:** the ¨python file path::``build-01-dep[slow].py`` updates automatically a ¨tex file with all the packages used by ¨tnscom.
+
+
+
+
+==========
 2020-07-23
 ==========
 

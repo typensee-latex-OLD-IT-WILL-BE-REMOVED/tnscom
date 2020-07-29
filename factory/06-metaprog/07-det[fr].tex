@@ -12,7 +12,7 @@
 
 %\section{En coulisse...}
 
-\subsection{Déterminant 2D ou produit en croix décoré}
+\subsection{Déterminant 2D ou produits en croix décorés}
 
 Des macros privées permettent, suivant le contexte, d'écrire un calcul de proportionnalité ou bien celui d'un déterminant avec différentes mises en forme possibles.
 
@@ -20,7 +20,7 @@ Des macros privées permettent, suivant le contexte, d'écrire un calcul de prop
 % ---------------------- %
 
 
-\newparaexample{La totale}
+\newparaexample{La totale en version courbée}
 
 La macro \macro{tns@det@plane@deco} est facile d'utilisation comme le montre l'exemple suivant.
 
@@ -31,7 +31,28 @@ $\tns@det@plane@deco%
      {u}       % 1e vecteur 2D
      {x}{y}    % Coord. du 1e vecteur 
      {v}       % 2e vecteur 2D
-     {x'}{y'}$ % Coord. du 2e vecteur
+     {x'}{y'}  % Coord. du 2e vecteur
+     {loop}$   % Une boucle explicative.
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{La totale en version produits en croix}
+
+Un autre mise en forme avec les explications est disponible.
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@deco%
+     {vec}     % Vecteurs visibles
+     {u}       % 1e vecteur 2D
+     {x}{y}    % Coord. du 1e vecteur 
+     {v}       % 2e vecteur 2D
+     {x'}{y'}  % Coord. du 2e vecteur
+     {cross}$  % Une croix explicative.
 \makeatother
 \end{latexex}
 
@@ -45,12 +66,24 @@ En choisissant \verb+novec+ au lieu de \verb+vec+, les vecteurs ne seront pas af
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco{novec}   %
-                    {u}{x}{y} %
-                    {v}{x'}{y'}$
+$\tns@det@plane@deco{novec}     %
+                    {u}{x}{y}   %
+                    {v}{x'}{y'} %
+                    {loop}$
 \makeatother
 \end{latexex}
 
+
+Ceci permet de produire un calcul de type produits en croix comme ci-dessous.
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@deco{novec}     %
+                    {u}{x}{y}   %
+                    {v}{x'}{y'} %
+                    {cross}$
+\makeatother
+\end{latexex}
 
 % ---------------------- %
 
@@ -87,7 +120,24 @@ $\tns@det@plane@no@deco{novec}   %
 
 \subsection{Fiches techniques}
 
-\IDmacro[a]{tns@det@plane@deco   }{7}
+\IDmacro[a]{tns@det@plane@deco}{8}
+
+
+\IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
+
+\IDarg{2} le 1\ier{} vecteur.
+
+\IDargs{3..4} les coordonnées du 1\ier{} vecteur.
+
+\IDarg{5} le 2\ieme{} vecteur.
+
+\IDargs{6..7} les coordonnées du 2\ieme{} vecteur.
+
+\IDargs{8} \verb+loop+ ou \verb+cross+ suivant que l'on veut tracer une boucle ou une croix expliquant les calculs. 
+
+
+\separation
+
 
 \IDmacro[a]{tns@det@plane@no@deco}{7}
 

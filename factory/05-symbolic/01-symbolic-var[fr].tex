@@ -1,0 +1,58 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+	\input{../config/header[fr].sty}
+
+	\usepackage{01-symbolic-var}
+\makeatother
+
+
+\begin{document}
+
+%\section{Quelques modifications générales}
+
+\subsection{Une variable \og symbolique \fg{}}
+
+%Alignement test : $\symvar*$$\symvar$
+
+Dans certains contextes, comme celui des opérateurs fonctionnels, il peut être utile d'indiquer un argument symboliquement via $\symvar$ par exemple sans faire référence précisément à une ou des variables nommées.
+Voici un exemple d'utilisation où \prefix{symvar} est pour \whyprefix{sym}{bolic} \whyprefix{var}{iable} soit \inenglish{variable symbolique}.
+
+\begin{latexex}
+ $| \symvar |$ ou
+ $\frac{d\symvar}{dx}
+= \frac{d}{dx} \symvar$
+\end{latexex}
+
+
+Si besoin, vous disposez d'autres symboles via l'argument optionnel de \macro{symvar} qui vaut \verb#1# par défaut.
+Voici tous les symboles disponibles.
+
+\begin{latexex}
+$\symvar[1]$
+$\symvar[2]$
+$\symvar[3]$
+\end{latexex}
+
+\begin{remark}
+	Comme les symboles sont juste des caractères au sens \LaTeX, il faudra si besoin gérer les espaces autour via par exemple des \macro{kern} pour obtenir des choses comme $|\kern.2ex\symvar\kern.2ex|$ et  $d\kern.25ex\symvar[2]$ qui ont été tapées \verb#$|\kern.2ex\symvar\kern.2ex|$# et \verb#$d\kern.25ex\symvar[2]$#.
+\end{remark}
+
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\IDmacro[o]{symvar}{1}
+
+\IDoption{} le numéro du symbole qui vaut \verb#1# par défaut.
+\begin{itemize}
+	\item \verb#1# donne $\symvar[1]$ .
+	\item \verb#2# donne $\symvar[2]$ .
+	\item \verb#3# donne $\symvar[3]$ .
+%	\item \verb#4# donne $\symvar[4]$ .
+\end{itemize}
+
+\end{document}

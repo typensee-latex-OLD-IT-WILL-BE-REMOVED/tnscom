@@ -8,6 +8,8 @@
 \RequirePackage{nicematrix}
 % R
 \RequirePackage{relsize}
+% S
+\RequirePackage{siunitx}
 % T
 \RequirePackage{tikz}
 % X
@@ -15,6 +17,22 @@
 
 % TikZ libraries
 \usetikzlibrary{calc}
+
+
+% ----------- %
+% -- UNITS -- %
+% ----------- %
+
+\@ifpackagewith{babel}{french}{
+    \sisetup{
+        list-final-separator  = {et},
+        list-pair-separator   = {et},
+        range-phrase          = {à},
+        input-product         = {*},
+        output-decimal-marker = {,},
+        group-minimum-digits  = 5
+    }
+}{}
 
 
 % ---------------- %
@@ -93,23 +111,24 @@
 }
 
 
-% ------------- %
-% -- SYMBOLS -- %
-% ------------- %
+% ------------------ %
+% -- SYMBOLIC VAR -- %
+% ------------------ %
 
 % Symbolic variable (for functional operators for example)
 %
 % Source
 %     * https://tex.stackexchange.com/a/273043/6880
 
-\newcommand\symvar{\@ifstar{\@symbvar@star}{\@symbvar@no@star}}
-
-\newcommand\@symbvar@no@star{%
-    \text{\raise0.2ex\hbox{$\mathsmaller{\bullet}$}}%
-}
-
-\newcommand\@symbvar@star{%
-    \vcenter{\hbox{\rule{.65ex}{.65ex}}}%
+\newcommand\symvar[1][1]{%
+    \IfEqCase{#1}{%
+        {1}{\text{\raise0.2ex\hbox{$\mathsmaller{\bullet}$}}}%
+        {2}{\text{\raise0.2ex\hbox{$\mathsmaller{\circ}$}}}%
+        {3}{\vcenter{\hbox{\rule{.65ex}{.65ex}}}}%
+    }[%
+        \PackageError{tnscom}{unknown option}%
+                             {you can use 1 (default), 2 or 3.}%
+    ]
 }
 
 
@@ -302,7 +321,7 @@
 }        
 
 
-%   #1 : option for the formatting
+%   #1 : vector or not
 %
 %   #2  #5        u  v
 %   
@@ -316,29 +335,66 @@
 }
 
 
-\newcommand\tns@det@plane@deco[7]{%
+\newcommand\tns@det@plane@deco@abstract@loop{%
+            	\begin{tikzpicture}
+                	\path (1-1.east) 
+	                   -- node[below = 0.45em,
+    	                       red,
+        	                   circle,
+            	               inner sep = 1.25pt] 
+                	      (minus) {\tiny$-$}
+                    	  (1-3.west);
+                	\draw [red,->]
+                    	let \p1 = ($(minus.east) - (minus.center)$) in 
+     	                   ([xshift = 0.5mm] 1-1.east)
+        	                to[out = 0, in = 137.5]
+            	            (minus.50)
+                    	    arc[start angle = 50,
+                	    end angle = -230,
+	                    radius = \x1] 
+	                        to[out = 42.5, in =190]
+	                        ([xshift = -0.3mm] 1-1.east -| 1-3.west);
+            	\end{tikzpicture}
+}
+
+
+\newcommand\tns@det@plane@deco@abstract@cross{%
+            	\begin{tikzpicture}
+                	\draw [red, <->]
+						([xshift = 0.75mm]  1-1.mid east) 
+	                 -- ([xshift = -0.75mm] 2-3.mid west);
+                	\draw [blue, <->]
+						([xshift = 0.75mm]  2-1.mid east) 
+	                 -- ([xshift = -0.75mm] 1-3.mid west);
+            	\end{tikzpicture}
+}
+
+
+%   #1 : vector or not
+%
+%   #2  #5        u  v
+%   
+%   #3  #6        x  x'
+%   #4  #7        y  y'
+%
+%   #8 : curved lines or not
+
+\newcommand\tns@det@plane@deco[8]{%
     \tns@det@plane@open{#1}{&&}{#2}{#5}
         \tns@det@plane@entries{&&}{#3}{#4}{#6}{#7}
-        %%
-        \CodeAfter
-        \begin{tikzpicture}
-            \path (1-1.east) 
-               -- node[below = 0.45em,
-                       red,
-                       circle,
-                       inner sep = 1.25pt] 
-                  (minus) {\tiny$-$}
-                  (1-3.west);
-            \draw [red,->]
-                let \p1 = ($(minus.east) - (minus.center)$) in 
-                    ([xshift = 0.5mm]1-1.east)
-                    to[out = 0, in = 137.5]
-                    (minus.50)
-                    arc[start angle = 50,
-                end angle = -230,
-                radius = \x1] 
-                    to[out = 42.5, in =190]
-                    ([xshift = -0.3mm]1-1.east-|1-3.west);
-        \end{tikzpicture}   
+       	%%
+		\CodeAfter
+        \IfEqCase{#8}{
+        	{loop}{
+				\let\callit\tns@det@plane@deco@abstract@loop
+        	}{cross}{
+				\let\callit\tns@det@plane@deco@abstract@cross
+        	}%
+    	}[%
+        	\PackageError{tnscom}{unknown value for 8th argument}%
+            	                 {you can use loop or cross.}% 
+      	]                    
+    	%%
+		\callit{}               
     \end{vNiceMatrix}
 }

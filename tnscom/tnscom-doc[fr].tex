@@ -232,10 +232,10 @@
 	Le package \texttt{tnscom}:\\%
 	outils communs à la suite \texttt{tns}\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnscom.git}.}\\%
-{\footnotesize Version \texttt{0.1.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.2.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-15}{{{{{{{{{{{
+\date{2020-07-29}{{{{{{{{{{{
 
 \maketitle
 
@@ -254,17 +254,74 @@
 
 \section{Introduction}
 
-Ce package contient quelques macros utiles à différents packages de la série \verb+tns+ qui a pour modeste ambition de rendre un plus sémantique l'écriture de document avec \LaTeX.
-Une partie des macros sont pour les coulisses et d'autres directement pour de la mise en forme commune à différents packages.
+Ce package contient quelques macros utiles à différents packages de la série \verb#tns# qui a pour modeste ambition de rendre un peu plus sémantique l'écriture de document avec \LaTeX.
+Une partie des macros sont pour les coulisses et d'autres directement pour des mises en forme communes à différents packages.
 
 
-% ---------------------- %
+% tnscom used - START
+% tnscom used - END
+% List of packages - START
+\section{Packages utilisés}
 
+La roue ayant déjà été inventée, le package \verb#tnscom# réutilise les packages suivants sans aucun scrupule.
 
+\begin{multicols}{4}
+    \begin{itemize}
+\item \verb#amssymb#
+    \item \verb#nicematrix#
+    \item \verb#relsize#
+    \item \verb#siunitx#
+    \item \verb#tikz#
+    \item \verb#xstring#
+    \end{itemize}
+\end{multicols}
+% List of packages - END
 \section{A propos des macros standards redéfinies}
 
 Certaines macros comme \verb+\frac+ sont un peu revues par \verb+tnscom+.
 Dans ce cas, les versions standard restent accessibles en utilisant le préfixe \prefix{std} ce qui donne ici la macro \macro{stdfrac}.
+\section{Travailler avec des unités S.I.}
+
+L'excellent package \verb#siunitx# étant chargé par \verb+tnscom+, il devient facile d'obtenir les choses suivantes de façon sémantique.
+Indiquons que \textbf{les conventions d'écriture sont françaises dès lors que vous aurez chargé \texttt{babel} avec l'option \texttt{french}}
+\footnote{
+	Ceci est un petit réglage simple à ajouter mais que \texttt{siunitx} ne propose par défaut. C'est un peu dommage.
+}
+comme c'est le cas pour cette documentation.
+Ceci permet par exemple de taper \verb#3.6# pour obtenir \num{3.6} ci-dessous.
+
+\begin{latexex}
+$\ang{180} = \SI{\pi}{\radian}$
+
+$\SI{1}{m.s^{-1}} = \SI{3.6}{km.h^{-1}}$
+\end{latexex}
+
+
+Dans l'exemple suivant, notez que les nombres à quatre chiffres comme  $\num{1234}$ sont écrits sans espace contrairement à ceux en ayant au moins cinq comme $\num{12345}$ car c'est l'usage typographique en France.
+Notez aussi les facilités données via la saisie de \verb#*# et \verb#e# dans l'argument de \macro{num} \emph{(c'est comme si l'on tapait sur une calculatrice)},
+ainsi que la possibilité d'utiliser des espaces pour améliorer la saisie des nombres dans le code \LaTeX.
+
+\begin{latexex}
+$\num{123*1000} = \num{123000}$
+
+$\num{123e3} = \num{123 000}$
+\end{latexex}
+
+
+\begin{remark}
+	Pour les curieux, les réglages utilisés pour le moment sont les suivants.
+	
+\begin{latexex-alone}
+\sisetup{
+    list-final-separator  = {et},
+    list-pair-separator   = {et},
+    range-phrase          = {à},
+    input-product         = {*},
+    output-decimal-marker = {,},
+    group-minimum-digits  = 5
+}
+\end{latexex-alone}	
+\end{remark}
 \section{Deux séparateurs d'arguments par défaut}
 
 La macro \macro{tnsmathsep} définit le séparateur d'arguments de premier niveau et \macro{tnsmathsubsep} celui des arguments de deuxième niveau.
@@ -315,26 +372,26 @@ $\sqrt[p]{7}  = \stdsqrt[p]{7}$
 %Alignement test : $\symvar*$$\symvar$
 
 Dans certains contextes, comme celui des opérateurs fonctionnels, il peut être utile d'indiquer un argument symboliquement via $\symvar$ par exemple sans faire référence précisément à une ou des variables nommées.
-\prefix{symvar} est pour \whyprefix{sym}{bolic} \whyprefix{var}{iable} soit \inenglish{variable symbolique}.
-Voici un exemple d'utilisation.
+Voici un exemple d'utilisation où \prefix{symvar} est pour \whyprefix{sym}{bolic} \whyprefix{var}{iable} soit \inenglish{variable symbolique}.
 
 \begin{latexex}
  $| \symvar |$ ou
  $\frac{d\symvar}{dx}
-= \frac{d}{dx}\symvar$
+= \frac{d}{dx} \symvar$
 \end{latexex}
 
 
-Si besoin, vous disposez d'un autre symbole via la version étoilée de \macro{symvar} pour obtenir $\symvar*$ comme ci-dessous.
+Si besoin, vous disposez d'autres symboles via l'argument optionnel de \macro{symvar} qui vaut \verb#1# par défaut.
+Voici tous les symboles disponibles.
 
 \begin{latexex}
- $| \symvar* |$ ou
- $\frac{d\symvar*}{dx}
-= \frac{d}{dx}\symvar*$
+$\symvar[1]$
+$\symvar[2]$
+$\symvar[3]$
 \end{latexex}
 
 \begin{remark}
-	Comme $\symvar$ et $\symvar*$ sont des caractères, il faudra si besoin gérer les espaces autour via des \macro{kern} pour obtenir des choses comme  $|\kern.2ex\symvar\kern.2ex|$ et  $d\kern.25ex\symvar*$ par exemple.
+	Comme les symboles sont juste des caractères au sens \LaTeX, il faudra si besoin gérer les espaces autour via par exemple des \macro{kern} pour obtenir des choses comme $|\kern.2ex\symvar\kern.2ex|$ et  $d\kern.25ex\symvar[2]$ qui ont été tapées \verb#$|\kern.2ex\symvar\kern.2ex|$# et \verb#$d\kern.25ex\symvar[2]$#.
 \end{remark}
 
 
@@ -541,7 +598,7 @@ $\tns@prop@prod{\cdot} % Opérateur
 % ---------------------- %
 %\section{En coulisse...}
 
-\subsection{Déterminant 2D ou produit en croix décoré}
+\subsection{Déterminant 2D ou produits en croix décorés}
 
 Des macros privées permettent, suivant le contexte, d'écrire un calcul de proportionnalité ou bien celui d'un déterminant avec différentes mises en forme possibles.
 
@@ -549,7 +606,7 @@ Des macros privées permettent, suivant le contexte, d'écrire un calcul de prop
 % ---------------------- %
 
 
-\newparaexample{La totale}
+\newparaexample{La totale en version courbée}
 
 La macro \macro{tns@det@plane@deco} est facile d'utilisation comme le montre l'exemple suivant.
 
@@ -560,7 +617,28 @@ $\tns@det@plane@deco%
      {u}       % 1e vecteur 2D
      {x}{y}    % Coord. du 1e vecteur 
      {v}       % 2e vecteur 2D
-     {x'}{y'}$ % Coord. du 2e vecteur
+     {x'}{y'}  % Coord. du 2e vecteur
+     {loop}$   % Une boucle explicative.
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{La totale en version produits en croix}
+
+Un autre mise en forme avec les explications est disponible.
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@deco%
+     {vec}     % Vecteurs visibles
+     {u}       % 1e vecteur 2D
+     {x}{y}    % Coord. du 1e vecteur 
+     {v}       % 2e vecteur 2D
+     {x'}{y'}  % Coord. du 2e vecteur
+     {cross}$  % Une croix explicative.
 \makeatother
 \end{latexex}
 
@@ -574,12 +652,24 @@ En choisissant \verb+novec+ au lieu de \verb+vec+, les vecteurs ne seront pas af
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco{novec}   %
-                    {u}{x}{y} %
-                    {v}{x'}{y'}$
+$\tns@det@plane@deco{novec}     %
+                    {u}{x}{y}   %
+                    {v}{x'}{y'} %
+                    {loop}$
 \makeatother
 \end{latexex}
 
+
+Ceci permet de produire un calcul de type produits en croix comme ci-dessous.
+
+\begin{latexex}
+\makeatletter
+$\tns@det@plane@deco{novec}     %
+                    {u}{x}{y}   %
+                    {v}{x'}{y'} %
+                    {cross}$
+\makeatother
+\end{latexex}
 
 % ---------------------- %
 
@@ -627,6 +717,23 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 % Changes shown - START
 
     \medskip
+    \item[2020-07-29] Nouvelle version mineure \verb+0.2.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Déterminant 2D} ajout de l'explication du calcul à la sauce produit en croix.
+    
+    
+        \item \topic*{Symboles} la macro \macro{symvar*} a été supprimée. À la place on fera appel à l'argument optionnel de \macro{symvar}.
+    
+    
+        \item \topic*{Nouvelle dépendance} le package \verb#siunitx# est chargé par défaut.
+    \end{itemize}
+    
+    \separation
+
+% ------------------------ %
+
+    \medskip
     \item[2020-07-15] Nouvelle version mineure \verb+0.1.0-beta+.
     
     \begin{itemize}[itemsep=.5em]
@@ -647,6 +754,15 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \newpage
 \section{Toutes les fiches techniques} \label{techincal-ids}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -705,9 +821,15 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 
 
-\IDmacro[n]{symvar}
+\IDmacro[o]{symvar}{1}
 
-\IDmacro[n]{symvar*}
+\IDoption{} le numéro du symbole qui vaut \verb#1# par défaut.
+\begin{itemize}
+	\item \verb#1# donne $\symvar[1]$ .
+	\item \verb#2# donne $\symvar[2]$ .
+	\item \verb#3# donne $\symvar[3]$ .
+%	\item \verb#4# donne $\symvar[4]$ .
+\end{itemize}
 
 
 \subsection{En coulisse...}
@@ -786,11 +908,28 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDargs{2..5} les $4$ éléments du tableau de proportionnalité lus ligne par ligne.
 
 
-\subsubsection{Déterminant 2D ou produit en croix décoré}
+\subsubsection{Déterminant 2D ou produits en croix décorés}
 
 
 
-\IDmacro[a]{tns@det@plane@deco   }{7}
+\IDmacro[a]{tns@det@plane@deco}{8}
+
+
+\IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
+
+\IDarg{2} le 1\ier{} vecteur.
+
+\IDargs{3..4} les coordonnées du 1\ier{} vecteur.
+
+\IDarg{5} le 2\ieme{} vecteur.
+
+\IDargs{6..7} les coordonnées du 2\ieme{} vecteur.
+
+\IDargs{8} \verb+loop+ ou \verb+cross+ suivant que l'on veut tracer une boucle ou une croix expliquant les calculs. 
+
+
+\separation
+
 
 \IDmacro[a]{tns@det@plane@no@deco}{7}
 
