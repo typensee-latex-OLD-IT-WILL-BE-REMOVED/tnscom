@@ -1,11 +1,24 @@
 ==========
+2020-07-30
+==========
+
+**New minor version version::``0.3.0-beta`` of ¨tnscom:** see the new feature below.
+
+
+**Cross product have been integrated:** this is due to the fact that the way to code this feature is very similar to the one used for the 2D determinant.
+
+
+**2D determinant:** the new argument for loop or cross has been removed. Instead we must use ``\tns@det@plane@deco@loop`` or ``\tns@det@plane@deco@cross``. This gives a similar ¨api to the one for cross products with their 9 arguments.
+
+
+==========
 2020-07-29
 ==========
 
 **New minor version version::``0.2.0-beta`` of ¨tnscom:** see the changes below.
 
 
-**New formating fo 2D determinant :** the macro ``\tns@det@plane@deco`` has a new argument to choose between curved lines or straight ones which explain how to calculate.
+**New formating for the 2D determinant:** the macro ``\tns@det@plane@deco`` has a new argument to choose between curved lines or straight ones which explain how to calculate.
 
 
 **New symbolic variables :** the starred version of ``\symvar`` has been removed. Instead an optional argument can be used to change the kind of symbolic variable.

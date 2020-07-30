@@ -1,0 +1,134 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \input{07-det-cross-prod.sty}
+\makeatother
+
+
+
+\begin{document}
+
+%\section{En coulisse...}
+
+\subsection{Produit vectoriel expliqué}
+
+Une macro privée permet d'écrire un calcul de produit vectoriel
+\footnote{
+	Bien qu'utilisée juste par \texttt{tnsgeo}, cette fonctionnalité a été placée dans \texttt{tnscom} car son codage a beaucoup de points communs avec celui des déterminants 2D et du critère de colinéarité. Ceci facilite donc la maintenance.
+}.
+
+
+% ---------------------- %
+
+
+\newparaexample{Avec des boucles explicatives}
+
+La macro \macro{tns@cross@prod@deco} est facile d'utilisation comme le montre l'exemple suivant.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@deco@loop%
+     {vec}         % Vecteurs visibles
+     {u}           % 1e vecteur 2D
+     {x}{y}{z}     % Coord. du 1e vecteur 
+     {v}           % 2e vecteur 2D
+     {x'}{y'}{z'}$ % Coord. du 2e vecteur
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Avec des croix explicatives}
+
+Une autre mise en forme avec les explications est disponible.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@deco@cross%
+     {vec}          %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Décoration mais sans vecteur}
+
+En choisissant \verb+novec+ au lieu de \verb+vec+, les vecteurs ne seront pas affichés.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@deco@loop%
+     {novec}        %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+ou
+$\tns@cross@prod@deco@cross%
+     {novec}        %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Sans décoration mais avec les vecteurs}
+
+En utilisant \macro{tns@cross@prod@no@deco}, la boucle fléchée ne sera pas imprimée. Voici une 1\iere{} utilisation possible.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@no@deco%
+     {vec}          %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Sans décoration ni vecteur}
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@no@deco%
+     {novec}        %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\subsection{Fiche technique}
+
+\IDmacro[a]{tns@cross@prod@deco@loop }{9}
+
+\IDmacro[a]{tns@cross@prod@deco@cross}{9}
+
+\IDmacro[a]{tns@cross@prod@no@deco   }{9}
+
+\IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
+
+\IDarg{2} le 1\ier{} vecteur.
+
+\IDarg{3..5} les coordonnées du 1\ier{} vecteur.
+
+\IDarg{6} le 2\ieme{} vecteur.
+
+\IDarg{7..9} les coordonnées du 2\ieme{} vecteur.
+
+\end{document}

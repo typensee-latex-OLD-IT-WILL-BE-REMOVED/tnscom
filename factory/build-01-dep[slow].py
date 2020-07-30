@@ -295,7 +295,7 @@ if "tnscom" in packages:
     temp_tex = text_start + """
 \\section{Beta-dépendance}
 
-\\verb#\\tnscom# qui est disponible sur \\url{https://github.com/typensee-latex/tnscom.git} est un package utilisé en coulisse.
+\\verb#tnscom# qui est disponible sur \\url{https://github.com/typensee-latex/tnscom.git} est un package utilisé en coulisse.
 """ + text_end
 
     with open(
@@ -344,7 +344,7 @@ if packages:
 
 La roue ayant déjà été inventée, le package \\verb#""" \
 + PROJECT_NAME \
-+ """# réutilise les packages suivants sans aucun scrupule.
++ """# utilise les packages suivants sans aucun scrupule.
 
 \\begin{multicols}{4}
     \\begin{itemize}

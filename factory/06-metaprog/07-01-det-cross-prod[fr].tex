@@ -3,7 +3,7 @@
 \makeatletter
     \input{../config/header[fr].sty}
 
-    \input{07-det.sty}
+    \input{07-det-cross-prod.sty}
 \makeatother
 
 
@@ -12,9 +12,9 @@
 
 %\section{En coulisse...}
 
-\subsection{Déterminant 2D ou produits en croix décorés}
+\subsection{Déterminant 2D et critère de colinéarité}
 
-Des macros privées permettent, suivant le contexte, d'écrire un calcul de proportionnalité ou bien celui d'un déterminant avec différentes mises en forme possibles.
+Des macros privées permettent, suivant le contexte, d'écrire le critère de colinéarité ou bien le calcul d'un déterminant 2D avec différentes mises en forme possibles.
 
 
 % ---------------------- %
@@ -26,13 +26,12 @@ La macro \macro{tns@det@plane@deco} est facile d'utilisation comme le montre l'
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco%
+$\tns@det@plane@deco@loop%
      {vec}     % Vecteurs visibles
      {u}       % 1e vecteur 2D
      {x}{y}    % Coord. du 1e vecteur 
      {v}       % 2e vecteur 2D
-     {x'}{y'}  % Coord. du 2e vecteur
-     {loop}$   % Une boucle explicative.
+     {x'}{y'}$ % Coord. du 2e vecteur
 \makeatother
 \end{latexex}
 
@@ -42,17 +41,16 @@ $\tns@det@plane@deco%
 
 \newparaexample{La totale en version produits en croix}
 
-Un autre mise en forme avec les explications est disponible.
+Une autre mise en forme avec les explications est disponible.
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco%
+$\tns@det@plane@deco@cross%
      {vec}     % Vecteurs visibles
      {u}       % 1e vecteur 2D
      {x}{y}    % Coord. du 1e vecteur 
      {v}       % 2e vecteur 2D
-     {x'}{y'}  % Coord. du 2e vecteur
-     {cross}$  % Une croix explicative.
+     {x'}{y'}$ % Coord. du 2e vecteur
 \makeatother
 \end{latexex}
 
@@ -66,10 +64,9 @@ En choisissant \verb+novec+ au lieu de \verb+vec+, les vecteurs ne seront pas af
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco{novec}     %
-                    {u}{x}{y}   %
-                    {v}{x'}{y'} %
-                    {loop}$
+$\tns@det@plane@deco@loop{novec}    %
+                         {u}{x}{y}  %
+                         {v}{x'}{y'}$
 \makeatother
 \end{latexex}
 
@@ -78,10 +75,9 @@ Ceci permet de produire un calcul de type produits en croix comme ci-dessous.
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco{novec}     %
-                    {u}{x}{y}   %
-                    {v}{x'}{y'} %
-                    {cross}$
+$\tns@det@plane@deco@cross{novec}    %
+                          {u}{x}{y}  %
+                          {v}{x'}{y'}$
 \makeatother
 \end{latexex}
 
@@ -94,8 +90,8 @@ En utilisant \macro{tns@det@plane@no@deco}, la boucle fléchée ne sera pas impr
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@no@deco{vec}     %
-                       {u}{x}{y} %
+$\tns@det@plane@no@deco{vec}      %
+                       {u}{x}{y}  %
                        {v}{x'}{y'}$
 \makeatother
 \end{latexex}
@@ -108,8 +104,8 @@ $\tns@det@plane@no@deco{vec}     %
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@no@deco{novec}   %
-                       {u}{x}{y} %
+$\tns@det@plane@no@deco{novec}    %
+                       {u}{x}{y}  %
                        {v}{x'}{y'}$
 \makeatother
 \end{latexex}
@@ -120,28 +116,12 @@ $\tns@det@plane@no@deco{novec}   %
 
 \subsection{Fiches techniques}
 
-\IDmacro[a]{tns@det@plane@deco}{8}
+\IDmacro[a]{tns@det@plane@deco@loop}{7}
 
-
-\IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
-
-\IDarg{2} le 1\ier{} vecteur.
-
-\IDargs{3..4} les coordonnées du 1\ier{} vecteur.
-
-\IDarg{5} le 2\ieme{} vecteur.
-
-\IDargs{6..7} les coordonnées du 2\ieme{} vecteur.
-
-\IDargs{8} \verb+loop+ ou \verb+cross+ suivant que l'on veut tracer une boucle ou une croix expliquant les calculs. 
-
-
-\separation
-
+\IDmacro[a]{tns@det@plane@deco@cross}{7}
 
 \IDmacro[a]{tns@det@plane@no@deco}{7}
 
-
 \IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
 
 \IDarg{2} le 1\ier{} vecteur.
@@ -151,5 +131,6 @@ $\tns@det@plane@no@deco{novec}   %
 \IDarg{5} le 2\ieme{} vecteur.
 
 \IDargs{6..7} les coordonnées du 2\ieme{} vecteur.
+
 
 \end{document}

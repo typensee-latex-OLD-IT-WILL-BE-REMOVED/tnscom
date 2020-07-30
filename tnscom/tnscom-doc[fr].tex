@@ -232,10 +232,10 @@
 	Le package \texttt{tnscom}:\\%
 	outils communs à la suite \texttt{tns}\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnscom.git}.}\\%
-{\footnotesize Version \texttt{0.2.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.3.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-29}{{{{{{{{{{{
+\date{2020-07-30}{{{{{{{{{{{
 
 \maketitle
 
@@ -263,7 +263,7 @@ Une partie des macros sont pour les coulisses et d'autres directement pour des m
 % List of packages - START
 \section{Packages utilisés}
 
-La roue ayant déjà été inventée, le package \verb#tnscom# réutilise les packages suivants sans aucun scrupule.
+La roue ayant déjà été inventée, le package \verb#tnscom# utilise les packages suivants sans aucun scrupule.
 
 \begin{multicols}{4}
     \begin{itemize}
@@ -598,9 +598,9 @@ $\tns@prop@prod{\cdot} % Opérateur
 % ---------------------- %
 %\section{En coulisse...}
 
-\subsection{Déterminant 2D ou produits en croix décorés}
+\subsection{Déterminant 2D et critère de colinéarité}
 
-Des macros privées permettent, suivant le contexte, d'écrire un calcul de proportionnalité ou bien celui d'un déterminant avec différentes mises en forme possibles.
+Des macros privées permettent, suivant le contexte, d'écrire le critère de colinéarité ou bien le calcul d'un déterminant 2D avec différentes mises en forme possibles.
 
 
 % ---------------------- %
@@ -612,13 +612,12 @@ La macro \macro{tns@det@plane@deco} est facile d'utilisation comme le montre l'
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco%
+$\tns@det@plane@deco@loop%
      {vec}     % Vecteurs visibles
      {u}       % 1e vecteur 2D
      {x}{y}    % Coord. du 1e vecteur 
      {v}       % 2e vecteur 2D
-     {x'}{y'}  % Coord. du 2e vecteur
-     {loop}$   % Une boucle explicative.
+     {x'}{y'}$ % Coord. du 2e vecteur
 \makeatother
 \end{latexex}
 
@@ -628,17 +627,16 @@ $\tns@det@plane@deco%
 
 \newparaexample{La totale en version produits en croix}
 
-Un autre mise en forme avec les explications est disponible.
+Une autre mise en forme avec les explications est disponible.
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco%
+$\tns@det@plane@deco@cross%
      {vec}     % Vecteurs visibles
      {u}       % 1e vecteur 2D
      {x}{y}    % Coord. du 1e vecteur 
      {v}       % 2e vecteur 2D
-     {x'}{y'}  % Coord. du 2e vecteur
-     {cross}$  % Une croix explicative.
+     {x'}{y'}$ % Coord. du 2e vecteur
 \makeatother
 \end{latexex}
 
@@ -652,10 +650,9 @@ En choisissant \verb+novec+ au lieu de \verb+vec+, les vecteurs ne seront pas af
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco{novec}     %
-                    {u}{x}{y}   %
-                    {v}{x'}{y'} %
-                    {loop}$
+$\tns@det@plane@deco@loop{novec}    %
+                         {u}{x}{y}  %
+                         {v}{x'}{y'}$
 \makeatother
 \end{latexex}
 
@@ -664,10 +661,9 @@ Ceci permet de produire un calcul de type produits en croix comme ci-dessous.
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@deco{novec}     %
-                    {u}{x}{y}   %
-                    {v}{x'}{y'} %
-                    {cross}$
+$\tns@det@plane@deco@cross{novec}    %
+                          {u}{x}{y}  %
+                          {v}{x'}{y'}$
 \makeatother
 \end{latexex}
 
@@ -680,8 +676,8 @@ En utilisant \macro{tns@det@plane@no@deco}, la boucle fléchée ne sera pas impr
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@no@deco{vec}     %
-                       {u}{x}{y} %
+$\tns@det@plane@no@deco{vec}      %
+                       {u}{x}{y}  %
                        {v}{x'}{y'}$
 \makeatother
 \end{latexex}
@@ -694,9 +690,110 @@ $\tns@det@plane@no@deco{vec}     %
 
 \begin{latexex}
 \makeatletter
-$\tns@det@plane@no@deco{novec}   %
-                       {u}{x}{y} %
+$\tns@det@plane@no@deco{novec}    %
+                       {u}{x}{y}  %
                        {v}{x'}{y'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+%\section{En coulisse...}
+
+\subsection{Produit vectoriel expliqué}
+
+Une macro privée permet d'écrire un calcul de produit vectoriel
+\footnote{
+	Bien qu'utilisée juste par \texttt{tnsgeo}, cette fonctionnalité a été placée dans \texttt{tnscom} car son codage a beaucoup de points communs avec celui des déterminants 2D et du critère de colinéarité. Ceci facilite donc la maintenance.
+}.
+
+
+% ---------------------- %
+
+
+\newparaexample{Avec des boucles explicatives}
+
+La macro \macro{tns@cross@prod@deco} est facile d'utilisation comme le montre l'exemple suivant.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@deco@loop%
+     {vec}         % Vecteurs visibles
+     {u}           % 1e vecteur 2D
+     {x}{y}{z}     % Coord. du 1e vecteur 
+     {v}           % 2e vecteur 2D
+     {x'}{y'}{z'}$ % Coord. du 2e vecteur
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Avec des croix explicatives}
+
+Une autre mise en forme avec les explications est disponible.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@deco@cross%
+     {vec}          %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Décoration mais sans vecteur}
+
+En choisissant \verb+novec+ au lieu de \verb+vec+, les vecteurs ne seront pas affichés.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@deco@loop%
+     {novec}        %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+ou
+$\tns@cross@prod@deco@cross%
+     {novec}        %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Sans décoration mais avec les vecteurs}
+
+En utilisant \macro{tns@cross@prod@no@deco}, la boucle fléchée ne sera pas imprimée. Voici une 1\iere{} utilisation possible.
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@no@deco%
+     {vec}          %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
+\makeatother
+\end{latexex}
+
+
+% ---------------------- %
+
+
+\newparaexample{Sans décoration ni vecteur}
+
+\begin{latexex}
+\makeatletter
+$\tns@cross@prod@no@deco%
+     {novec}        %
+     {u}{x}{y}{z}   % 
+     {v}{x'}{y'}{z'}$
 \makeatother
 \end{latexex}
 
@@ -715,6 +812,19 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 
 \begin{description}
 % Changes shown - START
+
+    \medskip
+    \item[2020-07-30] Nouvelle version mineure \verb+0.3.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic*{Produit vectoriel} intégration de cette fonctionnalité propre à \verb#tnsgeo#  pour faciliter la maintenance.
+        
+         \item \topic*{Déterminant 2D} l'API est devenue similaire à celle pour le produit vectoriel.
+    \end{itemize}
+    
+    \separation
+
+% ------------------------ %
 
     \medskip
     \item[2020-07-29] Nouvelle version mineure \verb+0.2.0-beta+.
@@ -908,32 +1018,16 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDargs{2..5} les $4$ éléments du tableau de proportionnalité lus ligne par ligne.
 
 
-\subsubsection{Déterminant 2D ou produits en croix décorés}
+\subsubsection{Déterminant 2D et critère de colinéarité}
 
 
 
-\IDmacro[a]{tns@det@plane@deco}{8}
+\IDmacro[a]{tns@det@plane@deco@loop}{7}
 
-
-\IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
-
-\IDarg{2} le 1\ier{} vecteur.
-
-\IDargs{3..4} les coordonnées du 1\ier{} vecteur.
-
-\IDarg{5} le 2\ieme{} vecteur.
-
-\IDargs{6..7} les coordonnées du 2\ieme{} vecteur.
-
-\IDargs{8} \verb+loop+ ou \verb+cross+ suivant que l'on veut tracer une boucle ou une croix expliquant les calculs. 
-
-
-\separation
-
+\IDmacro[a]{tns@det@plane@deco@cross}{7}
 
 \IDmacro[a]{tns@det@plane@no@deco}{7}
 
-
 \IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
 
 \IDarg{2} le 1\ier{} vecteur.
@@ -943,6 +1037,27 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{5} le 2\ieme{} vecteur.
 
 \IDargs{6..7} les coordonnées du 2\ieme{} vecteur.
+
+
+\subsubsection{Produit vectoriel expliqué}
+
+
+
+\IDmacro[a]{tns@cross@prod@deco@loop }{9}
+
+\IDmacro[a]{tns@cross@prod@deco@cross}{9}
+
+\IDmacro[a]{tns@cross@prod@no@deco   }{9}
+
+\IDarg{1} \verb+vec+ ou \verb+novec+ suivant que l'on veut afficher ou non les vecteurs. 
+
+\IDarg{2} le 1\ier{} vecteur.
+
+\IDarg{3..5} les coordonnées du 1\ier{} vecteur.
+
+\IDarg{6} le 2\ieme{} vecteur.
+
+\IDarg{7..9} les coordonnées du 2\ieme{} vecteur.
 
 
 
