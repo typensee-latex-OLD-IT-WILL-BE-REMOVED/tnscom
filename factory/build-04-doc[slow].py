@@ -82,7 +82,7 @@ def extract_level(line):
 def close_techsec(line, level):
     thislevel = extract_level(line.strip())
 
-    return (thislevel and levelsmaller(level, thislevel))
+    return (thislevel and level and levelsmaller(level, thislevel))
 
 
 def extract_title(level, lines, i):
@@ -119,7 +119,7 @@ def update_humansecs(seclevel, title):
     LAST_HUMAN_SECS[pos] = (seclevel, title)
 
 
-def extracttechtitle(level):
+def extracttechtitle(level, latexfile):
     global LAST_HUMAN_SECS
 
     goodpos = - 1
@@ -130,7 +130,10 @@ def extracttechtitle(level):
             break
 
     if goodpos == -1:
-        raise Exception("Illegal use of a title for a technical section.")
+        raise Exception(
+            "Illegal use of a title for a technical section. See :"
+            f"    * {latexfile}"
+        )
 
     content_tiles = []
 
@@ -148,20 +151,6 @@ def extracttechtitle(level):
     content_tiles = "\n".join(content_tiles)
 
     return content_tiles
-
-
-# ------------------------- #
-# -- COPYING EXTRA FILES -- #
-# ------------------------- #
-
-for img in THIS_DIR.walk("file::**\[fr\].png"):
-    if img.stem.endswith("-nodoc[fr]"):
-        continue
-
-    img.copy_to(
-        DIR_DOC_PATH / img.name,
-        safemode = False
-    )
 
 
 # ------------ #
@@ -236,7 +225,7 @@ for latexfile in LATEXFILES:
         if startingtech(aline):
             addtotech     = True
             lasttechlevel = extract_level(aline)
-            techcontent  += [extracttechtitle(lasttechlevel), ""]
+            techcontent  += [extracttechtitle(lasttechlevel, latexfile), ""]
 
             continue
 

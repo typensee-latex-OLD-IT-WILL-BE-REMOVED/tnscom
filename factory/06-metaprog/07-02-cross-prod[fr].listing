@@ -1,6 +1,0 @@
-\makeatletter
-$\tns@cross@prod@no@deco%
-     {novec}        %
-     {u}{x}{y}{z}   %
-     {v}{x'}{y'}{z'}$
-\makeatother

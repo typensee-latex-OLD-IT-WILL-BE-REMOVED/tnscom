@@ -116,8 +116,6 @@
 % -- SYMBOLIC VAR -- %
 % ------------------ %
 
-% Symbolic variable (for functional operators for example)
-%
 % Source
 %     * https://tex.stackexchange.com/a/273043/6880
 
@@ -133,78 +131,9 @@
 }
 
 
-% --------------------- %
-% -- APPLY ON 2 ARGS -- %
-% --------------------- %
-
-% Meta tools - Apply same macro to all arguments
-
-% #1      : main macro
-% #2      : macro to apply to arguments
-% #3 - #4 : the two arguments
-\newcommand\tns@apply@macro@two@args[4]{%
-    #1{#2{#3}}{#2{#4}}%
-}
-
-
-% ---------------- %
-% -- MULTI ARGS -- %
-% ---------------- %
-
-% Meta tools - Multi-arguments
-%
-% Source : the following lines come directly for the following post
-%
-%    * https://tex.stackexchange.com/a/475291/6880
-
-\ExplSyntaxOn
-% General purpose macro for defining other macros
-%
-% #1 : separator
-% #2 : multiargument
-% #3 : code before
-% #4 : code between
-% #5 : code after
-    \NewDocumentCommand{\tns@multi@args}{mmmmmo}{
-        \tnscom_multi@args:nnnnnn{#1}{#2}{#3}{#4}{#5}{#6}
-    }
- 
-% Allocate a private variable
-    \seq_new:N \l__tnscom_generic_seq
-
-% The internal version of the general purpose macro
-    \cs_new_protected:Nn \tnscom_multi@args:nnnnnn{
-        % #1 : separator
-        % #2 : multiargument
-        % #3 : code before
-        % #4 : code between
-        % #5 : code after
-        % #6 : ornament to items
-
-        % A group allows nesting
-        \group_begin:
-            % Split the multi@argsument into parts
-            \seq_set_split:Nnn \l__tnscom_generic_seq { #1 } { #2 }
-            % Apply the ornament to the items
-            \tl_if_novalue:nF { #6 }{
-                \seq_set_eq:NN \l__tnscom_temp_seq \l__tnscom_generic_seq
-                \seq_set_map:NNn \l__tnscom_generic_seq \l__tnscom_generic_seq { #6 }
-            }
-            % Execute the <code before>
-            #3
-            % Deliver the items, with the chosen material between them
-            \seq_use:Nn \l__tnscom_generic_seq { #4 }
-            % Execute the <code after>
-            #5
-            % End the group started at the beginning
-        \group_end:
-    }    
-\ExplSyntaxOff
-
-
-% --------------------------- %
-% -- MATH INTERVAL GENERIC -- %
-% --------------------------- %
+% ---------------------- %
+% -- INTERVAL GENERIC -- %
+% ---------------------- %
 
 % Math tools - Intervals and co
 
@@ -239,11 +168,9 @@
 }
 
 
-% --------------- %
-% -- MATH OVER -- %
-% --------------- %
-
-% Math tools - Deco over a math symbol
+% ---------- %
+% -- OVER -- %
+% ---------- %
 
 % #1 : the text over the symbol
 % #2 : the symbol
@@ -256,17 +183,6 @@
 % -- PROPORTIONALITY -- %
 % --------------------- %
 
-% Math tools - Det in 2D
-
-% Source
-%    * F. Pantigny gives me good advices to use its great package nicematrix.
-%    * https://tex.stackexchange.com/a/548662/6880
-%
-%   #1 : symbol for the product
-%
-%   #2  #3		x  x'
-%   #4  #5      y  y'
-
 \newcommand\tns@prop@prod[5]{
     #2 #1 #5 - #4 #1 #3%
 }
@@ -276,7 +192,7 @@
 % -- DET CROSS PROD -- %
 % -------------------- %
 
-% 2D DET & CRITERIA OF COLINEARITY
+% -- 2D det & criteria of colinearity --%
 
 % Abstraction
 
@@ -402,8 +318,7 @@
 
 
 
-
-% CROSS PRODUCT
+% -- Cross product -- %
 
 %   #1 : vector or not
 %
@@ -529,4 +444,120 @@
         #5                & #9                    \\
         {\color{blue} #3} & {\color{blue} #7}
     \end{vNiceMatrix}
+}
+
+
+% --------------------- %
+% -- APPLY ON 2 ARGS -- %
+% --------------------- %
+
+% #1      : main macro
+% #2      : macro to apply to arguments
+% #3 - #4 : the two arguments
+\newcommand\tns@apply@macro@two@args[4]{%
+    #1{#2{#3}}{#2{#4}}%
+}
+
+
+% ---------------- %
+% -- MULTI ARGS -- %
+% ---------------- %
+
+% -- Multi-arguments (before/after and sep) -- %
+
+% Source : the following lines come directly for the following post
+%
+%    * https://tex.stackexchange.com/a/475291/6880
+
+\ExplSyntaxOn
+% General purpose macro for defining other macros
+%
+% #1 : separator
+% #2 : multiargument
+% #3 : code before
+% #4 : code between
+% #5 : code after
+    \NewDocumentCommand{\tns@multi@args}{mmmmmo}{
+        \tnscom_multi@args:nnnnnn{#1}{#2}{#3}{#4}{#5}{#6}
+    }
+ 
+% Allocate a private variable
+    \seq_new:N \l__tnscom_generic_seq
+
+% The internal version of the general purpose macro
+    \cs_new_protected:Nn \tnscom_multi@args:nnnnnn{
+        % #1 : separator
+        % #2 : multiargument
+        % #3 : code before
+        % #4 : code between
+        % #5 : code after
+        % #6 : ornament to items
+
+        % A group allows nesting
+        \group_begin:
+            % Split the multi@argsument into parts
+            \seq_set_split:Nnn \l__tnscom_generic_seq { #1 } { #2 }
+            % Apply the ornament to the items
+            \tl_if_novalue:nF { #6 }{
+                \seq_set_eq:NN \l__tnscom_temp_seq \l__tnscom_generic_seq
+                \seq_set_map:NNn \l__tnscom_generic_seq \l__tnscom_generic_seq { #6 }
+            }
+            % Execute the <code before>
+            #3
+            % Deliver the items, with the chosen material between them
+            \seq_use:Nn \l__tnscom_generic_seq { #4 }
+            % Execute the <code after>
+            #5
+            % End the group started at the beginning
+        \group_end:
+    }   
+\ExplSyntaxOff
+
+
+% -- Apply one macro to each part of a multi-arg -- %
+
+\newcounter{tns@multi@apply@each@position}
+\newcommand\tns@multi@apply@each@macro{}
+
+
+% #1 : macro to apply
+% #2 : multi-args
+\newcommand\tns@multi@apply@each[2]{
+	\setcounter{tns@multi@apply@each@position}{0}
+	\renewcommand\tns@multi@apply@each@macro{#1}
+	\tns@multi@apply@each@recu#2|\nil
+	\renewcommand\tns@multi@apply@each@macro{}
+}
+
+
+\def\tns@multi@apply@each@recu#1|#2\nil{
+	\stepcounter{tns@multi@apply@each@position}
+	\tns@multi@apply@each@macro{#1}
+	\if\relax\detokenize{#2}\relax\else
+		\tns@multi@apply@each@recu#2\nil
+	\fi
+}
+
+
+% -- Apply one macro to each consecutive couple of a multi-arg -- %
+
+\newcounter{tns@multi@apply@couple@position}
+\newcommand\tns@multi@apply@couple@macro{}
+
+% #1 : macro to apply
+% #2 : multi-args
+\newcommand\tns@multi@apply@couple[2]{
+	\setcounter{tns@multi@apply@couple@position}{0}
+	\renewcommand\tns@multi@apply@couple@macro{#1}
+	\tns@multi@apply@couple@recu#2|\nil
+	\renewcommand\tns@multi@apply@couple@macro{}
+}
+
+
+\def\tns@multi@apply@couple@recu#1|#2|#3\nil{
+	\stepcounter{tns@multi@apply@couple@position}
+	\tns@multi@apply@couple@macro{#1}{#2}
+	\if\relax\detokenize{#3}\relax\else
+		\tns@multi@apply@couple@recu#2|#3\nil
+	\fi
 }

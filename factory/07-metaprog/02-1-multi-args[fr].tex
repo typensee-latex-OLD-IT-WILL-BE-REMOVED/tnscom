@@ -6,13 +6,15 @@
     \input{02-multi-args.sty}
 \makeatother
 
+\usepackage{nicematrix}
+
 
 
 \begin{document}
 
 %\section{En coulisse...}
 
-\subsection{Macro avec un \og multi-argument \fg}
+\subsection{Macro avec un \og multi-argument \fg{} à \og envelopper \fg}
 
 La suite \verb+tns+ propose la possibilité d'avoir des macros avec un nombre variables d'arguments. Pour ce type de macros, le choix a été fait de passer via unique argument au sens \LaTeX{} mais contenant des \emph{\og sous-arguemnts \fg} séparés par des barres verticales \emph{(on dit \emph{\og pipe \fg} en anglais)}.
 Nous parlerons de  \og multi-argument \fg.
@@ -39,7 +41,7 @@ $\verticalcoord{1 | 2 | 3 | 4 | 5}$ ...
 \end{latexex}
 
 
-La macro \macro{verticalcoord} a été définie comme suit via la macro privée \macro{tns@multi@args}. L'environnement \env{bmatrix} vient du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
+La macro \macro{verticalcoord} a été définie comme suit via la macro privée \macro{tns@multi@args} en utilisant l'environnement \env{bmatrix} vient du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
 
 \begin{latexex-alone}
 \newcommand\verticalcoord[1]{%

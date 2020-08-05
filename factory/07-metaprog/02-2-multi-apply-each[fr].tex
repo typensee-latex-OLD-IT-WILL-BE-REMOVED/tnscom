@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \input{02-multi-args.sty}
+\makeatother
+
+\usepackage{nicematrix}
+
+
+
+\begin{document}
+
+%\section{En coulisse...}
+
+\subsection{Appliquer une macro sur chaque partie d'un \og multi-argument \fg}
+
+\newparaexample{Appliquer partout}
+
+Il est possible d'appliquer une macro chaque partie d'un mutli-argument comme ci-dessous.
+
+\makeatletter
+\newcommand\decoone[1]{%
+    [(\textbf{#1})] \quad%
+}
+
+\newcommand\multiapply[1]{%
+    \tns@multi@apply@each{\decoone}{#1}
+}
+\makeatother
+
+\begin{latexex}
+\multiapply{1|2|3}
+\end{latexex}
+
+La macro \macro{multiapply} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decoone[1]{%
+    [(\textbf{#1})] \quad%
+}
+
+\newcommand\multiapply[1]{%
+    \tns@multi@apply@each{\decoone}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+
+
+\newparaexample{Choisir où appliquer}
+
+La macro \macro{tns@multi@apply@each} donne accès au numéro de l'argument envoyé à la macro à appliquer via la compteur \verb#tns@multi@apply@each@position#.
+Ceci permet de différencier par exemple le traitement du tout premier argument comme dans l'exemple suivant \emph{(c'est pour cela que le compteur a été créé)}.
+
+\makeatletter
+\newcommand\decoafterfirst[1]{%
+    \ifnum\value{tns@multi@apply@each@position}=1
+        #1:%
+    \else%
+        << #1 >> \quad%
+    \fi%
+}
+
+\newcommand\multiapplyafterone[1]{%
+    \tns@multi@apply@each{\decoafterfirst}{#1}
+}
+\makeatother
+
+\begin{latexex}
+\multiapplyafterone{1|2|3}
+\end{latexex}
+
+La macro \macro{multiapplyafterone} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decoafterfirst[1]{%
+    \ifnum\value{tns@multi@apply@each@position}=1
+        #1:%
+    \else%
+        << #1 >> \quad%
+    \fi%
+}
+
+\newcommand\multiapplyafterone[1]{%
+    \tns@multi@apply@each{\decoafterfirst}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\IDmacro[a]{tns@multi@apply@each}{2}
+
+\IDarg{1} la macro à appliquer à chaque partie du \og multi-argument \fg.
+
+\IDarg{2} le \og multi-argument \fg.
+
+\end{document}

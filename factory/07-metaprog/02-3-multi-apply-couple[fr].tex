@@ -1,0 +1,108 @@
+\documentclass[12pt,a4paper]{article}
+
+\makeatletter
+    \input{../config/header[fr].sty}
+
+    \input{02-multi-args.sty}
+\makeatother
+
+\usepackage{nicematrix}
+
+
+
+\begin{document}
+
+%\section{En coulisse...}
+
+\subsection{Appliquer une macro sur chaque couple de parties successives d'un \og multi-argument \fg}
+
+\newparaexample{Appliquer partout}
+
+Il est possible d'appliquer une macro sur chaque couple de parties successives partie d'un mutli-argument comme ci-dessous.
+
+
+\makeatletter
+\newcommand\decocouple[2]{%
+    (#1)[#2]%
+}
+
+\newcommand\multiapplycouple[1]{%
+    \tns@multi@apply@couple{\decocouple}{#1}
+}
+\makeatother
+
+
+\begin{latexex}
+\multiapplycouple{1|2|3}
+\end{latexex}
+
+
+La macro \macro{multiapplycouple} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decocouple[2]{%
+    (#1)[#2]%
+}
+
+\newcommand\multiapplycouple[1]{%
+    \tns@multi@apply@couple{\decocouple}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+
+
+\newparaexample{Choisir où appliquer}
+
+Le compteur \verb#tns@multi@apply@couple@position# permet de connaître le numéro du couple à traiter.
+Ceci permet de différencier par exemple le traitement du tout premier couple comme dans l'exemple suivant \emph{(c'est pour cela que le compteur a été créé)}. 
+
+
+\makeatletter
+\newcommand\decocoupleafterfirst[2]{%
+    \ifnum\value{tns@multi@apply@couple@position}=1
+        \{#1-#2\}%
+    \else%
+        (#1)[#2]%
+    \fi
+}
+
+\newcommand\multiapplycoupleafterone[1]{%
+    \tns@multi@apply@couple{\decocoupleafterfirst}{#1}
+}
+\makeatother
+
+\begin{latexex}
+\multiapplycoupleafterone{1|2|3}
+\end{latexex}
+
+La macro \macro{multiapplycoupleafterone} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decocoupleafterfirst[2]{%
+    \ifnum\value{tns@multi@apply@couple@position}=1
+        \{#1-#2\}%
+    \else%
+        (#1)[#2]%
+    \fi
+}
+
+\newcommand\multiapplycoupleafterone[1]{%
+    \tns@multi@apply@couple{\decocoupleafterfirst}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+
+
+\subsection{Fiches techniques}
+
+\IDmacro[a]{tns@multi@apply@couple}{2}
+
+\IDarg{1} la macro à appliquer à chaque couple de parties successives du \og multi-argument \fg.
+
+\IDarg{2} le \og multi-argument \fg.
+
+\end{document}

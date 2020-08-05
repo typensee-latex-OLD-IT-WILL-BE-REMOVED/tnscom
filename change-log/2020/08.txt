@@ -1,0 +1,11 @@
+==========
+2020-08-05
+==========
+
+**New minor version version::``0.4.0-beta`` of ¨tnscom:** see the new features below.
+
+
+**Two new macros for the backstage: ** ``tns@multi@apply@each`` and ``tns@multi@apply@couple`` have been added for the last version of ¨tnsproba.
+
+
+**Documentation:** a section just about math tools have been made.

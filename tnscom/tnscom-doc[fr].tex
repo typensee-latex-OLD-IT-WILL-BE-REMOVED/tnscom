@@ -232,10 +232,10 @@
 	Le package \texttt{tnscom}:\\%
 	outils communs à la suite \texttt{tns}\\%
 	{\footnotesize Code source disponible sur \url{https://github.com/typensee-latex/tnscom.git}.}\\%
-{\footnotesize Version \texttt{0.3.0-beta} développée et testée sur \macosxname{}.}%
+{\footnotesize Version \texttt{0.4.0-beta} développée et testée sur \macosxname{}.}%
 }
 \author{Christophe BAL}
-\date{2020-07-30}{{{{{{{{{{{
+\date{2020-08-05}{{{{{{{{{{{
 
 \maketitle
 
@@ -395,93 +395,8 @@ $\symvar[3]$
 \end{remark}
 
 
-
 % ---------------------- %
-\section{En coulisse...}
-
-Cette section présente les macros dites \emph{\og privées \fg} qui sont proposées par \verb+tnscom+.
-Toutes ces macros ont des noms commençant par \verb+\tns@+ et aucune version étoilée n'est proposée
-\footnote{
-	\og Explicite \fg{} est mieux que \og implicite \fg{}.
-}.
-
-
-\subsection{Nouvelle macro modifiant les arguments en amont de l'application d'une ancienne macro}
-
-Comme cette fonctionnalité est utilisée par plusieurs packages de la suite \verb+tns+, une mini macro permet de faciliter la définition de ce type de nouvelle macro.
-Par exemple, ci-dessous la 2\ieme{} macro ajoute juste une mise en forme particulière aux deux arguments juste avant d'appliquer la 1\iere{} macro.
-
-\makeatletter
-\newcommand\twoargs[2]{#1, #2}
-\newcommand\modify[1]{\textbf{([#1])}}
-\def\newtwoargs{\tns@apply@macro@two@args\twoargs\modify}
-\makeatother
-
-\begin{latexex}
-\twoargs{A}{B} : \newtwoargs{A}{B}
-\end{latexex}
-
-
-Ceci est géré facilement via la macro \macro{tns@apply@macro@two@args} comme suit en fournissant comme 1\ier{} argument la macro cible et pour 2\ieme{} celle qui va modifier en amont les arguments.
-
-\begin{latexex-alone}
-\newcommand\twoargs[2]{#1, #2}
-\newcommand\modify[1]{\textbf{([#1])}}
-
-\def\newtwoargs{\tns@apply@macro@two@args\twoargs\modify}
-\end{latexex-alone}
-
-
-\begin{remark}
-	En interne la macro \macro{tns@apply@macro@two@args} est définie avec quatre arguments.
-	En fait ci-dessus nous utilisons la machinerie \LaTeX{} qui va manger les deux arguments manquants lors de l'utilisation de \macro{newtwoargs}.
-\end{remark}
-
-
-% ---------------------- %
-%\section{En coulisse...}
-
-\subsection{Macro avec un \og multi-argument \fg}
-
-La suite \verb+tns+ propose la possibilité d'avoir des macros avec un nombre variables d'arguments. Pour ce type de macros, le choix a été fait de passer via unique argument au sens \LaTeX{} mais contenant des \emph{\og sous-arguemnts \fg} séparés par des barres verticales \emph{(on dit \emph{\og pipe \fg} en anglais)}.
-Nous parlerons de  \og multi-argument \fg.
-
-\medskip
-
-Voici un exemple d'utilisation possible \emph{(la fonctionnalité ci-dessous est en fait disponible via la macro \macro{coord} du package \texttt{tnsgeo} disponible sur \url{https://github.com/typensee-latex/tnsgeo.git})}.
-
-\makeatletter
-\newcommand\verticalcoord[1]{%
-    \tns@multi@args{|}{#1}%
-                   {\begin{bmatrix}}%
-                   {\\}%
-                   {\end{bmatrix}}%
-}
-\makeatother
-
-\begin{latexex}
-$\verticalcoord{1}$                 ,
-$\verticalcoord{1 | 2}$             ,
-$\verticalcoord{1 | 2 | 3}$         ,
-$\verticalcoord{1 | 2 | 3 | 4}$     ,
-$\verticalcoord{1 | 2 | 3 | 4 | 5}$ ...
-\end{latexex}
-
-
-La macro \macro{verticalcoord} a été définie comme suit via la macro privée \macro{tns@multi@args}. L'environnement \env{bmatrix} vient du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
-
-\begin{latexex-alone}
-\newcommand\verticalcoord[1]{%
-    \tns@multi@args{|}{#1}           % Séparateur et argument au sens LaTeX
-                   {\begin{bmatrix}} % Matériel avant
-                   {\\}              % Ce qui remplace le séparateur
-                   {\end{bmatrix}}   % Matériel après
-}
-\end{latexex-alone}
-
-
-% ---------------------- %
-%\section{En coulisse...}
+\section{Pour les mathématiques}
 
 \subsection{Intervalles \og généralisés \fg}
 
@@ -799,6 +714,252 @@ $\tns@cross@prod@no@deco%
 
 
 % ---------------------- %
+\section{En coulisse...}
+
+Cette section présente les macros dites \emph{\og privées \fg} qui sont proposées par \verb+tnscom+.
+Toutes ces macros ont des noms commençant par \verb+\tns@+ et aucune version étoilée n'est proposée
+\footnote{
+	\og Explicite \fg{} est mieux que \og implicite \fg{}.
+}.
+
+
+\subsection{Nouvelle macro modifiant les arguments en amont de l'application d'une ancienne macro}
+
+Comme cette fonctionnalité est utilisée par plusieurs packages de la suite \verb+tns+, une mini macro permet de faciliter la définition de ce type de nouvelle macro.
+Par exemple, ci-dessous la 2\ieme{} macro ajoute juste une mise en forme particulière aux deux arguments juste avant d'appliquer la 1\iere{} macro.
+
+\makeatletter
+\newcommand\twoargs[2]{#1, #2}
+\newcommand\modify[1]{\textbf{([#1])}}
+\def\newtwoargs{\tns@apply@macro@two@args\twoargs\modify}
+\makeatother
+
+\begin{latexex}
+\twoargs{A}{B} : \newtwoargs{A}{B}
+\end{latexex}
+
+
+Ceci est géré facilement via la macro \macro{tns@apply@macro@two@args} comme suit en fournissant comme 1\ier{} argument la macro cible et pour 2\ieme{} celle qui va modifier en amont les arguments.
+
+\begin{latexex-alone}
+\newcommand\twoargs[2]{#1, #2}
+\newcommand\modify[1]{\textbf{([#1])}}
+
+\def\newtwoargs{\tns@apply@macro@two@args\twoargs\modify}
+\end{latexex-alone}
+
+
+\begin{remark}
+	En interne la macro \macro{tns@apply@macro@two@args} est définie avec quatre arguments.
+	En fait ci-dessus nous utilisons la machinerie \LaTeX{} qui va manger les deux arguments manquants lors de l'utilisation de \macro{newtwoargs}.
+\end{remark}
+
+
+% ---------------------- %
+%\section{En coulisse...}
+
+\subsection{Macro avec un \og multi-argument \fg{} à \og envelopper \fg}
+
+La suite \verb+tns+ propose la possibilité d'avoir des macros avec un nombre variables d'arguments. Pour ce type de macros, le choix a été fait de passer via unique argument au sens \LaTeX{} mais contenant des \emph{\og sous-arguemnts \fg} séparés par des barres verticales \emph{(on dit \emph{\og pipe \fg} en anglais)}.
+Nous parlerons de  \og multi-argument \fg.
+
+\medskip
+
+Voici un exemple d'utilisation possible \emph{(la fonctionnalité ci-dessous est en fait disponible via la macro \macro{coord} du package \texttt{tnsgeo} disponible sur \url{https://github.com/typensee-latex/tnsgeo.git})}.
+
+\makeatletter
+\newcommand\verticalcoord[1]{%
+    \tns@multi@args{|}{#1}%
+                   {\begin{bmatrix}}%
+                   {\\}%
+                   {\end{bmatrix}}%
+}
+\makeatother
+
+\begin{latexex}
+$\verticalcoord{1}$                 ,
+$\verticalcoord{1 | 2}$             ,
+$\verticalcoord{1 | 2 | 3}$         ,
+$\verticalcoord{1 | 2 | 3 | 4}$     ,
+$\verticalcoord{1 | 2 | 3 | 4 | 5}$ ...
+\end{latexex}
+
+
+La macro \macro{verticalcoord} a été définie comme suit via la macro privée \macro{tns@multi@args} en utilisant l'environnement \env{bmatrix} vient du très pratique package \verb+nicematrix+ qu'utilise déjà \verb+tnscom+.
+
+\begin{latexex-alone}
+\newcommand\verticalcoord[1]{%
+    \tns@multi@args{|}{#1}           % Séparateur et argument au sens LaTeX
+                   {\begin{bmatrix}} % Matériel avant
+                   {\\}              % Ce qui remplace le séparateur
+                   {\end{bmatrix}}   % Matériel après
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+%\section{En coulisse...}
+
+\subsection{Appliquer une macro sur chaque partie d'un \og multi-argument \fg}
+
+\newparaexample{Appliquer partout}
+
+Il est possible d'appliquer une macro chaque partie d'un mutli-argument comme ci-dessous.
+
+\makeatletter
+\newcommand\decoone[1]{%
+    [(\textbf{#1})] \quad%
+}
+
+\newcommand\multiapply[1]{%
+    \tns@multi@apply@each{\decoone}{#1}
+}
+\makeatother
+
+\begin{latexex}
+\multiapply{1|2|3}
+\end{latexex}
+
+La macro \macro{multiapply} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decoone[1]{%
+    [(\textbf{#1})] \quad%
+}
+
+\newcommand\multiapply[1]{%
+    \tns@multi@apply@each{\decoone}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+
+
+\newparaexample{Choisir où appliquer}
+
+La macro \macro{tns@multi@apply@each} donne accès au numéro de l'argument envoyé à la macro à appliquer via la compteur \verb#tns@multi@apply@each@position#.
+Ceci permet de différencier par exemple le traitement du tout premier argument comme dans l'exemple suivant \emph{(c'est pour cela que le compteur a été créé)}.
+
+\makeatletter
+\newcommand\decoafterfirst[1]{%
+    \ifnum\value{tns@multi@apply@each@position}=1
+        #1:%
+    \else%
+        << #1 >> \quad%
+    \fi%
+}
+
+\newcommand\multiapplyafterone[1]{%
+    \tns@multi@apply@each{\decoafterfirst}{#1}
+}
+\makeatother
+
+\begin{latexex}
+\multiapplyafterone{1|2|3}
+\end{latexex}
+
+La macro \macro{multiapplyafterone} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decoafterfirst[1]{%
+    \ifnum\value{tns@multi@apply@each@position}=1
+        #1:%
+    \else%
+        << #1 >> \quad%
+    \fi%
+}
+
+\newcommand\multiapplyafterone[1]{%
+    \tns@multi@apply@each{\decoafterfirst}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+%\section{En coulisse...}
+
+\subsection{Appliquer une macro sur chaque couple de parties successives d'un \og multi-argument \fg}
+
+\newparaexample{Appliquer partout}
+
+Il est possible d'appliquer une macro sur chaque couple de parties successives partie d'un mutli-argument comme ci-dessous.
+
+
+\makeatletter
+\newcommand\decocouple[2]{%
+    (#1)[#2]%
+}
+
+\newcommand\multiapplycouple[1]{%
+    \tns@multi@apply@couple{\decocouple}{#1}
+}
+\makeatother
+
+
+\begin{latexex}
+\multiapplycouple{1|2|3}
+\end{latexex}
+
+
+La macro \macro{multiapplycouple} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decocouple[2]{%
+    (#1)[#2]%
+}
+
+\newcommand\multiapplycouple[1]{%
+    \tns@multi@apply@couple{\decocouple}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
+
+
+\newparaexample{Choisir où appliquer}
+
+Le compteur \verb#tns@multi@apply@couple@position# permet de connaître le numéro du couple à traiter.
+Ceci permet de différencier par exemple le traitement du tout premier couple comme dans l'exemple suivant \emph{(c'est pour cela que le compteur a été créé)}. 
+
+
+\makeatletter
+\newcommand\decocoupleafterfirst[2]{%
+    \ifnum\value{tns@multi@apply@couple@position}=1
+        \{#1-#2\}%
+    \else%
+        (#1)[#2]%
+    \fi
+}
+
+\newcommand\multiapplycoupleafterone[1]{%
+    \tns@multi@apply@couple{\decocoupleafterfirst}{#1}
+}
+\makeatother
+
+\begin{latexex}
+\multiapplycoupleafterone{1|2|3}
+\end{latexex}
+
+La macro \macro{multiapplycoupleafterone} a été définie comme suit.
+
+\begin{latexex-alone}
+\newcommand\decocoupleafterfirst[2]{%
+    \ifnum\value{tns@multi@apply@couple@position}=1
+        \{#1-#2\}%
+    \else%
+        (#1)[#2]%
+    \fi
+}
+
+\newcommand\multiapplycoupleafterone[1]{%
+    \tns@multi@apply@couple{\decocoupleafterfirst}{#1}
+}
+\end{latexex-alone}
+
+
+% ---------------------- %
 \newpage
 
 \section{Historique}
@@ -814,12 +975,30 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 % Changes shown - START
 
     \medskip
+    \item[2020-08-05] Nouvelle version mineure \verb+0.4.0-beta+.
+    
+    \begin{itemize}[itemsep=.5em]
+        \item \topic{Multi-argument}
+        \begin{itemize}[itemsep=.5em]
+            \item Ajout de \macro{tns@multi@apply@each}.
+    
+            \item Ajout de \macro{tns@multi@apply@couple}.
+        \end{itemize}
+    \end{itemize}
+    
+    \separation
+
+% ------------------------ %
+
+    \medskip
     \item[2020-07-30] Nouvelle version mineure \verb+0.3.0-beta+.
     
     \begin{itemize}[itemsep=.5em]
         \item \topic*{Produit vectoriel} intégration de cette fonctionnalité propre à \verb#tnsgeo#  pour faciliter la maintenance.
-        
-         \item \topic*{Déterminant 2D} l'API est devenue similaire à celle pour le produit vectoriel.
+    
+    	% -------------- %
+    
+        \item \topic*{Déterminant 2D} l'API est devenue similaire à celle pour le produit vectoriel.
     \end{itemize}
     
     \separation
@@ -942,38 +1121,7 @@ Tous les changements sont disponibles uniquement en anglais dans le dossier \ver
 \end{itemize}
 
 
-\subsection{En coulisse...}
-
-\subsubsection{Nouvelle macro modifiant les arguments en amont de l'application d'une ancienne macro}
-
-
-
-\IDmacro[a]{tns@apply@macro@two@args}{4}
-
-\IDarg{1} macro finale avec deux arguments et c'est tout.
-
-\IDarg{2} macro qui sera appliqué sur chacun des deux arguments avant appel la macro donné en argument 1.
-
-\IDargs{3..4} ils sont là pour la définition abstraite mais en pratique ils ne seront pas utilisés
-Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@apply@macro@two@args}.
-
-
-\subsubsection{Macro avec un \og multi-argument \fg}
-
-
-
-\IDmacro[a]{tns@multi@args}{5}
-
-\IDarg{1} le séparateur de \emph{\og sous-arguemnts \fg}.
-
-\IDarg{2} le \og multi-argument \fg.
-
-\IDarg{2} le matériel a ajouté avant.
-
-\IDarg{4} le matériel que l'on met à la place du séparateur donné en 1\ier{} argument.
-
-\IDarg{5} le matériel a ajouté après.
-
+\subsection{Pour les mathématiques}
 
 \subsubsection{Intervalles \og généralisés \fg}
 
@@ -1058,6 +1206,61 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDarg{6} le 2\ieme{} vecteur.
 
 \IDarg{7..9} les coordonnées du 2\ieme{} vecteur.
+
+
+\subsection{En coulisse...}
+
+\subsubsection{Nouvelle macro modifiant les arguments en amont de l'application d'une ancienne macro}
+
+
+
+\IDmacro[a]{tns@apply@macro@two@args}{4}
+
+\IDarg{1} macro finale avec deux arguments et c'est tout.
+
+\IDarg{2} macro qui sera appliqué sur chacun des deux arguments avant appel la macro donné en argument 1.
+
+\IDargs{3..4} ils sont là pour la définition abstraite mais en pratique ils ne seront pas utilisés
+Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@apply@macro@two@args}.
+
+
+\subsubsection{Macro avec un \og multi-argument \fg{} à \og envelopper \fg}
+
+
+
+\IDmacro[a]{tns@multi@args}{5}
+
+\IDarg{1} le séparateur de \emph{\og sous-arguemnts \fg}.
+
+\IDarg{2} le \og multi-argument \fg.
+
+\IDarg{2} le matériel a ajouté avant.
+
+\IDarg{4} le matériel que l'on met à la place du séparateur donné en 1\ier{} argument.
+
+\IDarg{5} le matériel a ajouté après.
+
+
+\subsubsection{Appliquer une macro sur chaque partie d'un \og multi-argument \fg}
+
+
+
+\IDmacro[a]{tns@multi@apply@each}{2}
+
+\IDarg{1} la macro à appliquer à chaque partie du \og multi-argument \fg.
+
+\IDarg{2} le \og multi-argument \fg.
+
+
+\subsubsection{Appliquer une macro sur chaque couple de parties successives d'un \og multi-argument \fg}
+
+
+
+\IDmacro[a]{tns@multi@apply@couple}{2}
+
+\IDarg{1} la macro à appliquer à chaque couple de parties successives du \og multi-argument \fg.
+
+\IDarg{2} le \og multi-argument \fg.
 
 
 
