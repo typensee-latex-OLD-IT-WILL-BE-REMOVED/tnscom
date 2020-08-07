@@ -53,53 +53,52 @@
             % End the group started at the beginning
         \group_end:
     }   
-\ExplSyntaxOff
+
 
 
 % -- Apply one macro to each part of a multi-arg -- %
 
-\newcounter{tns@multi@apply@each@position}
-\newcommand\tns@multi@apply@each@macro{}
+% Source : the following lines come directly for the following post
+%
+%    * https://tex.stackexchange.com/a/557640/6880
 
-
-% #1 : macro to apply
-% #2 : multi-args
-\newcommand\tns@multi@apply@each[2]{
-	\setcounter{tns@multi@apply@each@position}{0}
-	\renewcommand\tns@multi@apply@each@macro{#1}
-	\tns@multi@apply@each@recu#2|\nil
-	\renewcommand\tns@multi@apply@each@macro{}
-}
-
-
-\def\tns@multi@apply@each@recu#1|#2\nil{
-	\stepcounter{tns@multi@apply@each@position}
-	\tns@multi@apply@each@macro{#1}
-	\if\relax\detokenize{#2}\relax\else
-		\tns@multi@apply@each@recu#2\nil
-	\fi
-}
-
-
+    \NewExpandableDocumentCommand \tns@multi@apply@each { m+m }
+      { \mbc_tns@multi@apply@each:Nn #1 {#2} }
+    \cs_new:Npn \mbc_tns@multi@apply@each:Nn #1 #2
+      {
+        \__mbc_tns@multi@apply@each:nNw { 0 } #1
+          | \prg_do_nothing: #2 | \q_recursion_tail | \q_recursion_stop
+      }
+    \cs_new:Npn \__mbc_tns@multi@apply@each:nNw #1 #2 | #3 |
+      { \exp_args:Nof \__mbc_tns@multi@apply@each:nnN {#3} { \int_eval:n {#1+1} } #2 }
+    \cs_new:Npn \__mbc_tns@multi@apply@each:nnN #1 #2 #3
+      {
+        \quark_if_recursion_tail_stop:n {#1}
+        \exp_not:n { #3 {#2} {\tl_trim_spaces:n {#1}} }
+        \__mbc_tns@multi@apply@each:nNw {#2} #3 | \prg_do_nothing:
+      }
+    
+    
+    
 % -- Apply one macro to each consecutive couple of a multi-arg -- %
 
-\newcounter{tns@multi@apply@couple@position}
-\newcommand\tns@multi@apply@couple@macro{}
-
-% #1 : macro to apply
-% #2 : multi-args
-\newcommand\tns@multi@apply@couple[2]{
-	\setcounter{tns@multi@apply@couple@position}{0}
-	\renewcommand\tns@multi@apply@couple@macro{#1}
-	\tns@multi@apply@couple@recu#2|\nil
-	\renewcommand\tns@multi@apply@couple@macro{}
-}
-
-
-\def\tns@multi@apply@couple@recu#1|#2|#3\nil{
-	\stepcounter{tns@multi@apply@couple@position}
-	\tns@multi@apply@couple@macro{#1}{#2}
-	\if\relax\detokenize{#3}\relax\else
-		\tns@multi@apply@couple@recu#2|#3\nil
-	\fi
-}
+    \NewExpandableDocumentCommand \tns@multi@apply@couple { m +m }
+      { \mbc_multiapply_pair:Nn #1 {#2} }
+    \cs_new:Npn \mbc_multiapply_pair:Nn #1 #2
+      {
+        \__mbc_multiapply_pair:nNw { 0 } #1
+          | \prg_do_nothing: #2 | \q_recursion_tail | \q_recursion_stop
+      }
+    \cs_new:Npn \__mbc_multiapply_pair:nNw #1 #2 | #3 |
+      { \__mbc_multiapply_pair:nNww {#1} #2 | #3 | \prg_do_nothing: }
+    \cs_new:Npn \__mbc_multiapply_pair:nNww #1 #2 | #3 | #4 |
+      { \__mbc_multiapply_pair:oofN {#3} {#4} { \int_eval:n {#1+1} } #2 }
+    \cs_new:Npn \__mbc_multiapply_pair:nnnN #1 #2 #3 #4
+      {
+        \quark_if_recursion_tail_stop:n {#2}
+        \quark_if_recursion_tail_stop:n {#1}
+        \exp_not:n { #4 {#3} {\tl_trim_spaces:n {#1}} {\tl_trim_spaces:n {#2}} }
+        \__mbc_multiapply_pair:nNww {#3} #4 | \prg_do_nothing: #2 | \prg_do_nothing:
+      }
+    \cs_generate_variant:Nn \__mbc_multiapply_pair:nnnN { oof }
+\ExplSyntaxOff

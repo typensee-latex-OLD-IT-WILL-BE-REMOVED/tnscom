@@ -22,8 +22,8 @@ Il est possible d'appliquer une macro sur chaque couple de parties successives p
 
 
 \makeatletter
-\newcommand\decocouple[2]{%
-    (#1)[#2]%
+\newcommand\decocouple[3]{%
+    (#2-#3)%
 }
 
 \newcommand\multiapplycouple[1]{%
@@ -33,15 +33,15 @@ Il est possible d'appliquer une macro sur chaque couple de parties successives p
 
 
 \begin{latexex}
-\multiapplycouple{1|2|3}
+\multiapplycouple{1 | 2 | 3}
 \end{latexex}
 
 
 La macro \macro{multiapplycouple} a été définie comme suit.
 
 \begin{latexex-alone}
-\newcommand\decocouple[2]{%
-    (#1)[#2]%
+\newcommand\decocouple[3]{%
+    (#2-#3)%
 }
 
 \newcommand\multiapplycouple[1]{%
@@ -60,11 +60,11 @@ Ceci permet de différencier par exemple le traitement du tout premier couple co
 
 
 \makeatletter
-\newcommand\decocoupleafterfirst[2]{%
-    \ifnum\value{tns@multi@apply@couple@position}=1
-        \{#1-#2\}%
-    \else%
-        (#1)[#2]%
+\newcommand\decocoupleafterfirst[3]{%
+    \ifnum#1=1
+        \fbox{#2-#3}%
+    \else%zzzzz
+        (#2-#3)%
     \fi
 }
 
@@ -74,17 +74,17 @@ Ceci permet de différencier par exemple le traitement du tout premier couple co
 \makeatother
 
 \begin{latexex}
-\multiapplycoupleafterone{1|2|3}
+\multiapplycoupleafterone{1 | 2 | 3}
 \end{latexex}
 
 La macro \macro{multiapplycoupleafterone} a été définie comme suit.
 
 \begin{latexex-alone}
-\newcommand\decocoupleafterfirst[2]{%
-    \ifnum\value{tns@multi@apply@couple@position}=1
-        \{#1-#2\}%
+\newcommand\decocoupleafterfirst[3]{%
+    \ifnum#1=1
+        \fbox{#2-#3}%
     \else%
-        (#1)[#2]%
+        (#2-#3)%
     \fi
 }
 
@@ -102,6 +102,8 @@ La macro \macro{multiapplycoupleafterone} a été définie comme suit.
 \IDmacro[a]{tns@multi@apply@couple}{2}
 
 \IDarg{1} la macro à appliquer à chaque couple de parties successives du \og multi-argument \fg.
+          Cette macro recevra trois arguments \emph{(le 1\ier{} est le numéro du couple tandis que le 2\ieme{} et le 3\ieme{} sont les parties du couple)}.
+
 
 \IDarg{2} le \og multi-argument \fg.
 

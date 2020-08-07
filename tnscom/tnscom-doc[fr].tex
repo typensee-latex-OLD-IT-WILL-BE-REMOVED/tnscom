@@ -807,9 +807,7 @@ La macro \macro{verticalcoord} a été définie comme suit via la macro privée 
 Il est possible d'appliquer une macro chaque partie d'un mutli-argument comme ci-dessous.
 
 \makeatletter
-\newcommand\decoone[1]{%
-    [(\textbf{#1})] \quad%
-}
+\newcommand\decoone[2]{ ((#2)) }
 
 \newcommand\multiapply[1]{%
     \tns@multi@apply@each{\decoone}{#1}
@@ -817,15 +815,14 @@ Il est possible d'appliquer une macro chaque partie d'un mutli-argument comme ci
 \makeatother
 
 \begin{latexex}
-\multiapply{1|2|3}
+\multiapply{1 | 2 | 3}
 \end{latexex}
 
 La macro \macro{multiapply} a été définie comme suit.
+L'exemple \ref{tnscom-special-apply-first} un peu plus bas explique à quoi sert le 1\ier{} argument de \macro{decoone} non utilisé ici.
 
 \begin{latexex-alone}
-\newcommand\decoone[1]{%
-    [(\textbf{#1})] \quad%
-}
+\newcommand\decoone[2]{ ((#2)) }
 
 \newcommand\multiapply[1]{%
     \tns@multi@apply@each{\decoone}{#1}
@@ -836,42 +833,42 @@ La macro \macro{multiapply} a été définie comme suit.
 % ---------------------- %
 
 
-\newparaexample{Choisir où appliquer}
+\newparaexample{Choisir où appliquer} \label{tnscom-special-apply-first}
 
-La macro \macro{tns@multi@apply@each} donne accès au numéro de l'argument envoyé à la macro à appliquer via la compteur \verb#tns@multi@apply@each@position#.
-Ceci permet de différencier par exemple le traitement du tout premier argument comme dans l'exemple suivant \emph{(c'est pour cela que le compteur a été créé)}.
+La macro \macro{tns@multi@apply@each} donne accès au numéro de l'argument à traiter via le 1\ier{} argument non utilisé dans l'exemple précédent.
+Ceci rend possible de traiter à part le tout premier argument comme ci-dessous.
 
 \makeatletter
-\newcommand\decoafterfirst[1]{%
-    \ifnum\value{tns@multi@apply@each@position}=1
-        #1:%
+\newcommand\decofirstandothers[2]{%
+    \ifnum#1=1
+        \fbox{#2} %
     \else%
-        << #1 >> \quad%
+        <<#2>> %
     \fi%
 }
 
 \newcommand\multiapplyafterone[1]{%
-    \tns@multi@apply@each{\decoafterfirst}{#1}
+    \tns@multi@apply@each{\decofirstandothers}{#1} 
 }
 \makeatother
 
 \begin{latexex}
-\multiapplyafterone{1|2|3}
+\multiapplyafterone{1 | 2 | 3}
 \end{latexex}
 
 La macro \macro{multiapplyafterone} a été définie comme suit.
 
 \begin{latexex-alone}
-\newcommand\decoafterfirst[1]{%
-    \ifnum\value{tns@multi@apply@each@position}=1
-        #1:%
+\newcommand\decofirstandothers[2]{%
+    \ifnum#1=1
+        \fbox{#2} %
     \else%
-        << #1 >> \quad%
+        <<#2>> %
     \fi%
 }
 
 \newcommand\multiapplyafterone[1]{%
-    \tns@multi@apply@each{\decoafterfirst}{#1}
+    \tns@multi@apply@each{\decofirstandothers}{#1}
 }
 \end{latexex-alone}
 
@@ -887,8 +884,8 @@ Il est possible d'appliquer une macro sur chaque couple de parties successives p
 
 
 \makeatletter
-\newcommand\decocouple[2]{%
-    (#1)[#2]%
+\newcommand\decocouple[3]{%
+    (#2-#3)%
 }
 
 \newcommand\multiapplycouple[1]{%
@@ -898,15 +895,15 @@ Il est possible d'appliquer une macro sur chaque couple de parties successives p
 
 
 \begin{latexex}
-\multiapplycouple{1|2|3}
+\multiapplycouple{1 | 2 | 3}
 \end{latexex}
 
 
 La macro \macro{multiapplycouple} a été définie comme suit.
 
 \begin{latexex-alone}
-\newcommand\decocouple[2]{%
-    (#1)[#2]%
+\newcommand\decocouple[3]{%
+    (#2-#3)%
 }
 
 \newcommand\multiapplycouple[1]{%
@@ -925,11 +922,11 @@ Ceci permet de différencier par exemple le traitement du tout premier couple co
 
 
 \makeatletter
-\newcommand\decocoupleafterfirst[2]{%
-    \ifnum\value{tns@multi@apply@couple@position}=1
-        \{#1-#2\}%
-    \else%
-        (#1)[#2]%
+\newcommand\decocoupleafterfirst[3]{%
+    \ifnum#1=1
+        \fbox{#2-#3}%
+    \else%zzzzz
+        (#2-#3)%
     \fi
 }
 
@@ -939,17 +936,17 @@ Ceci permet de différencier par exemple le traitement du tout premier couple co
 \makeatother
 
 \begin{latexex}
-\multiapplycoupleafterone{1|2|3}
+\multiapplycoupleafterone{1 | 2 | 3}
 \end{latexex}
 
 La macro \macro{multiapplycoupleafterone} a été définie comme suit.
 
 \begin{latexex-alone}
-\newcommand\decocoupleafterfirst[2]{%
-    \ifnum\value{tns@multi@apply@couple@position}=1
-        \{#1-#2\}%
+\newcommand\decocoupleafterfirst[3]{%
+    \ifnum#1=1
+        \fbox{#2-#3}%
     \else%
-        (#1)[#2]%
+        (#2-#3)%
     \fi
 }
 
@@ -1248,6 +1245,7 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDmacro[a]{tns@multi@apply@each}{2}
 
 \IDarg{1} la macro à appliquer à chaque partie du \og multi-argument \fg.
+          Cette macro recevra deux arguments \emph{(le 1\ier{} est le numéro de la partie et le 2\ieme{} la partie elle-même)}.
 
 \IDarg{2} le \og multi-argument \fg.
 
@@ -1259,6 +1257,8 @@ Ils correspondent aux arguments de la nouvelle macro fournie par \macro{tns@appl
 \IDmacro[a]{tns@multi@apply@couple}{2}
 
 \IDarg{1} la macro à appliquer à chaque couple de parties successives du \og multi-argument \fg.
+          Cette macro recevra trois arguments \emph{(le 1\ier{} est le numéro du couple tandis que le 2\ieme{} et le 3\ieme{} sont les parties du couple)}.
+
 
 \IDarg{2} le \og multi-argument \fg.
 

@@ -1,4 +1,11 @@
 ==========
+2020-08-07
+==========
+
+**¨expl3 versions: ** ``tns@multi@apply@each`` and ``tns@multi@apply@couple`` use now an ¨expl3 code.
+
+
+==========
 2020-08-05
 ==========
 
