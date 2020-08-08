@@ -1,0 +1,11 @@
+\newcommand\decofirstandothers[2]{%
+    \ifnum#1=1
+        \fbox{#2} %
+    \else%
+        <<#2>> %
+    \fi%
+}
+
+\newcommand\multiapplyafterone[1]{%
+    \tns@multi@apply@each{\decofirstandothers}{#1}
+}
