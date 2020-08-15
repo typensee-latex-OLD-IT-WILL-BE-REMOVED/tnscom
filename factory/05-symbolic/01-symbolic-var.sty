@@ -8,14 +8,26 @@
 
 % == DEFINITIONS == %
 
-% Source
-%     * https://tex.stackexchange.com/a/273043/6880
-
 \newcommand\symvar[1][1]{%
     \IfEqCase{#1}{%
         {1}{\text{\raise0.2ex\hbox{$\mathsmaller{\bullet}$}}}%
         {2}{\text{\raise0.2ex\hbox{$\mathsmaller{\circ}$}}}%
-        {3}{\vcenter{\hbox{\rule{.65ex}{.65ex}}}}%
+        {3}{\vcenter{\hbox{\rule{.65ex}{.65ex}}}}%%
+        {4}{% Let's have fule with the rules... :-)
+        	\vcenter{%
+				\hbox{%
+					\vrule width .075ex%
+	        		\vbox{%
+						\hrule height.075ex%
+						\kern.25ex
+						\hbox{\kern.5ex}%
+						\kern.25ex
+						\hrule height.075ex%
+					}%
+				\vrule width .075ex%
+				}%
+			}%
+		}%
     }[%
         \PackageError{tnscom}{unknown option}%
                              {you can use 1 (default), 2 or 3.}%

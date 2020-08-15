@@ -62,43 +62,51 @@
 %
 %    * https://tex.stackexchange.com/a/557640/6880
 
-    \NewExpandableDocumentCommand \tns@multi@apply@each { m+m }
-      { \mbc_tns@multi@apply@each:Nn #1 {#2} }
-    \cs_new:Npn \mbc_tns@multi@apply@each:Nn #1 #2
-      {
+    \NewExpandableDocumentCommand \tns@multi@apply@each { m+m } {
+    	\mbc_tns@multi@apply@each:Nn #1 {#2} 
+	}
+    
+    \cs_new:Npn \mbc_tns@multi@apply@each:Nn #1 #2 {
         \__mbc_tns@multi@apply@each:nNw { 0 } #1
           | \prg_do_nothing: #2 | \q_recursion_tail | \q_recursion_stop
-      }
-    \cs_new:Npn \__mbc_tns@multi@apply@each:nNw #1 #2 | #3 |
-      { \exp_args:Nof \__mbc_tns@multi@apply@each:nnN {#3} { \int_eval:n {#1+1} } #2 }
-    \cs_new:Npn \__mbc_tns@multi@apply@each:nnN #1 #2 #3
-      {
-        \quark_if_recursion_tail_stop:n {#1}
+   	}
+    
+    \cs_new:Npn \__mbc_tns@multi@apply@each:nNw #1 #2 | #3 | {
+    	\exp_args:Nof \__mbc_tns@multi@apply@each:nnN {#3} { \int_eval:n {#1+1} } #2 
+	}
+    
+    \cs_new:Npn \__mbc_tns@multi@apply@each:nnN #1 #2 #3 {
+    	\quark_if_recursion_tail_stop:n {#1}
         \exp_not:n { #3 {#2} {\tl_trim_spaces:n {#1}} }
         \__mbc_tns@multi@apply@each:nNw {#2} #3 | \prg_do_nothing:
-      }
-    
-    
-    
+    }
+
+
 % -- Apply one macro to each consecutive couple of a multi-arg -- %
 
-    \NewExpandableDocumentCommand \tns@multi@apply@couple { m +m }
-      { \mbc_multiapply_pair:Nn #1 {#2} }
-    \cs_new:Npn \mbc_multiapply_pair:Nn #1 #2
-      {
+    \NewExpandableDocumentCommand \tns@multi@apply@couple { m +m } {
+    	\mbc_multiapply_pair:Nn #1 {#2}
+	}
+    
+    \cs_new:Npn \mbc_multiapply_pair:Nn #1 #2 {
         \__mbc_multiapply_pair:nNw { 0 } #1
           | \prg_do_nothing: #2 | \q_recursion_tail | \q_recursion_stop
-      }
-    \cs_new:Npn \__mbc_multiapply_pair:nNw #1 #2 | #3 |
-      { \__mbc_multiapply_pair:nNww {#1} #2 | #3 | \prg_do_nothing: }
-    \cs_new:Npn \__mbc_multiapply_pair:nNww #1 #2 | #3 | #4 |
-      { \__mbc_multiapply_pair:oofN {#3} {#4} { \int_eval:n {#1+1} } #2 }
-    \cs_new:Npn \__mbc_multiapply_pair:nnnN #1 #2 #3 #4
-      {
+    }
+    
+    \cs_new:Npn \__mbc_multiapply_pair:nNw #1 #2 | #3 | {
+    	\__mbc_multiapply_pair:nNww {#1} #2 | #3 | \prg_do_nothing:
+	}
+    
+    \cs_new:Npn \__mbc_multiapply_pair:nNww #1 #2 | #3 | #4 | {	
+    	\__mbc_multiapply_pair:oofN {#3} {#4} { \int_eval:n {#1+1} } #2
+	}
+    
+    \cs_new:Npn \__mbc_multiapply_pair:nnnN #1 #2 #3 #4 {
         \quark_if_recursion_tail_stop:n {#2}
         \quark_if_recursion_tail_stop:n {#1}
         \exp_not:n { #4 {#3} {\tl_trim_spaces:n {#1}} {\tl_trim_spaces:n {#2}} }
         \__mbc_multiapply_pair:nNww {#3} #4 | \prg_do_nothing: #2 | \prg_do_nothing:
-      }
+    }
+    
     \cs_generate_variant:Nn \__mbc_multiapply_pair:nnnN { oof }
 \ExplSyntaxOff

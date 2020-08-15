@@ -1,4 +1,11 @@
 ==========
+2020-08-15
+==========
+
+**One new symbolic variables :** the 4th symbol is an unfilled square.
+
+
+==========
 2020-08-09
 ==========
 
